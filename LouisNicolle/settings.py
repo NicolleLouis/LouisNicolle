@@ -10,6 +10,7 @@ SECRET_KEY = '+l6iy@^#)j*z11*#p2spl)(+#7-*)n!k5n6)lx0@h)qdpom5-%'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "www.louisnicolle.com",
     "127.0.0.1",
     "localhost",
     "LouisNicolle-dev.eba-4b36m3zn.eu-west-3.elasticbeanstalk.com"
