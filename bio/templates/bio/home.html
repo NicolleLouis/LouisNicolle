@@ -3,13 +3,13 @@
 {% block title %}{{ title }}{% endblock title %}
 
 {% block content %}
-    {% load static %}
     <h1>{{ title }}</h1>
     Hi, I'm Louis Nicolle, french freelance and former CTO, expert in back-end and data engineering<br>
     I would be glad to help you, contact me if you have a project.<br>
     Find more informations on the following links.<br><br>
 
     <ul>
-        <li><a href="{% static 'cv.pdf' %}">CV</a></li>
+        {% load static %}
+        <li><a href="{% static 'bio/cv.pdf' %}">CV</a></li>
     </ul>
 {% endblock content %}
