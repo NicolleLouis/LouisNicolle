@@ -5,7 +5,7 @@ from django.urls import path, include
 
 def home(request):
     context = {
-        "title": "Home"
+        "title": "Louis Nicolle"
     }
     return render(request, "LouisNicolle/home.html", context)
 
