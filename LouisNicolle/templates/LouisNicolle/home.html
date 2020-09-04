@@ -88,8 +88,8 @@
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#goals">Goals</a></li>
-                    <li><a href="#portfolio">Work</a></li>
-                    <li><a href="#clients">Clients</a></li>
+                    <li><a href="#projects">Project</a></li>
+                    <li><a href="#articles">Articles</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -137,13 +137,13 @@
                             </p>
                             <p class="mb-30">
                                 I am uploading my projects/experiments on this website.
-                                Mostly some django back end ideas, playing around datas,
+                                Mostly some django back end ideas, playing around data,
                                 If you have an idea of a side project and don't know how to start,
                                 call me.
                             </p>
 
                             <button>
-                                <a href="{% static 'bio/cv.pdf' %}">
+                                <a href="{% static 'bio/cv.pdf' %}" class="hidden-white">
                                     <i class="fa fa-download"
                                        aria-hidden="true">
                                     </i>
@@ -207,83 +207,53 @@
     </section>
     <!-- ====== End hero ======  -->
 
-    <!--====== Portfolio ======-->
-    <section id="portfolio" class="portfolio section-padding">
+    <!--====== Portfolio Articles ======-->
+    <section id="projects" class="portfolio section-padding">
 
         <div class="container">
 
             <!-- section header -->
             <div class="section-head text-center">
-                <h5 class="tit">My Work !</h5>
+                <h5 class="tit">My Projects !</h5>
             </div>
             <div class="row">
-
-                <!-- filter links -->
-                <div class="filtering text-center mb-50">
-                    <span data-filter='*' class="active">All</span>
-                    <span data-filter='.brand'>Brand</span>
-                    <span data-filter='.web'>Design</span>
-                    <span data-filter='.photo'>Photo</span>
-                </div>
 
                 <!-- gallery -->
                 <div class="gallery text-center">
 
                     <!-- gallery item -->
-                    <div class="col-md-4 item-img photo">
-                        <img src={% static "LouisNicolle/img/portfolio/1.jpg" %} alt="image">
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/genetic_algo_tuto.jpg" %} alt="image">
                         <div class="item-img-overlay">
                             <span class="v"></span>
                             <span class="x"></span>
                             <div class="v-middle">
-                                <a href="LouisNicolle/img/portfolio/1.jpg"><span class="icon-scope"></span></a>
-                                <h5>Photographic</h5>
+                                <a href="https://medium.com/@louisn_23157/getting-started-genetic-algorithms-python-tutorial-81ffa1dd72f9">
+                                    <span class="icon-scope"></span>
+                                </a>
+                                <h5>Genetic Algorithm</h5>
                             </div>
                         </div>
                     </div>
 
                     <!-- gallery item -->
-                    <div class="col-md-4 item-img web">
-                        <img src={% static "LouisNicolle/img/portfolio/2.jpg" %} alt="image">
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/optimization_genetic_algo.jpg" %} alt="image">
                         <div class="item-img-overlay">
                             <span class="v"></span>
                             <span class="x"></span>
                             <div class="v-middle">
-                                <a href="LouisNicolle/img/portfolio/2.jpg"><span class="icon-scope"></span></a>
-                                <h5>Web Design</h5>
+                                <a href="https://medium.com/@louisn_23157/optimization-mutation-genetic-algorithm-40247f8ccb8">
+                                    <span class="icon-scope"></span>
+                                </a>
+                                <h5>Genetic Algorithm</h5>
                             </div>
                         </div>
                     </div>
 
                     <!-- gallery item -->
-                    <div class="col-md-4 item-img brand">
+                    <div class="col-md-4 item-img">
                         <img src={% static "LouisNicolle/img/portfolio/3.jpg" %} alt="image">
-                        <div class="item-img-overlay">
-                            <span class="v"></span>
-                            <span class="x"></span>
-                            <div class="v-middle">
-                                <a href="LouisNicolle/img/portfolio/3.jpg"><span class="icon-scope"></span></a>
-                                <h5>Branding</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- gallery item -->
-                    <div class="col-md-4 item-img photo">
-                        <img src={% static "LouisNicolle/img/portfolio/4.jpg" %} alt="image">
-                        <div class="item-img-overlay">
-                            <span class="v"></span>
-                            <span class="x"></span>
-                            <div class="v-middle">
-                                <a href="LouisNicolle/img/portfolio/4.jpg"><span class="icon-scope"></span></a>
-                                <h5>Photographic</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- gallery item -->
-                    <div class="col-md-4 item-img web">
-                        <img src={% static "LouisNicolle/img/portfolio/5.jpg" %} alt="image">
                         <div class="item-img-overlay">
                             <span class="v"></span>
                             <span class="x"></span>
@@ -295,8 +265,8 @@
                     </div>
 
                     <!-- gallery item -->
-                    <div class="col-md-4 item-img brand">
-                        <img src={% static "LouisNicolle/img/portfolio/6.jpg" %} alt="image">
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/4.jpg" %} alt="image">
                         <div class="item-img-overlay">
                             <span class="v"></span>
                             <span class="x"></span>
@@ -313,53 +283,81 @@
     </section>
     <!--====== End Portfolio ======-->
 
-    <!--====== Clients ======-->
-    <section id="clients" class="clients section-padding">
+    <!--====== Portfolio Articles ======-->
+    <section id="articles" class="portfolio section-padding">
+
         <div class="container">
+
+            <!-- section header -->
+            <div class="section-head text-center">
+                <h5 class="tit">My Articles !</h5>
+            </div>
             <div class="row">
 
-                <!-- clients carousel -->
-                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                    <div class="client-say text-center">
+                <!-- gallery -->
+                <div class="gallery text-center">
 
-                        <h5 class="tit mb-30">Reviews !</h5>
-
-                        <div class="owl-carousel owl-theme">
-
-                            <!-- client item -->
-                            <div class="client-item text-center">
-
-                                <p>Phasellus luctus commodo ullamcorper a posuere rhoncus commodo elit. Aenean congue,
-                                    risus utaliquam dapibus. Thanks!.</p>
-
-                                <h6>___ John Doe, Google Inc. ___</h6>
+                    <!-- gallery item -->
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/genetic_algo_tuto.jpg" %} alt="image">
+                        <div class="item-img-overlay">
+                            <span class="v"></span>
+                            <span class="x"></span>
+                            <div class="v-middle">
+                                <a href="https://medium.com/@louisn_23157/getting-started-genetic-algorithms-python-tutorial-81ffa1dd72f9">
+                                    <span class="icon-scope"></span>
+                                </a>
+                                <h5>Genetic Algorithm</h5>
                             </div>
-
-                            <!-- client item -->
-                            <div class="client-item text-center">
-
-                                <p>Phasellus luctus commodo ullamcorper a posuere rhoncus commodo elit. Aenean congue,
-                                    risus utaliquam dapibus. Thanks!.</p>
-
-                                <h6>___ John Doe, Google Inc. ___</h6>
-                            </div>
-
-                            <!-- client item -->
-                            <div class="client-item text-center">
-
-                                <p>Phasellus luctus commodo ullamcorper a posuere rhoncus commodo elit. Aenean congue,
-                                    risus utaliquam dapibus. Thanks!.</p>
-
-                                <h6>___ John Doe, Google Inc. ___</h6>
-                            </div>
-
                         </div>
                     </div>
+
+                    <!-- gallery item -->
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/optimization_genetic_algo.jpg" %} alt="image">
+                        <div class="item-img-overlay">
+                            <span class="v"></span>
+                            <span class="x"></span>
+                            <div class="v-middle">
+                                <a href="https://medium.com/@louisn_23157/optimization-mutation-genetic-algorithm-40247f8ccb8">
+                                    <span class="icon-scope"></span>
+                                </a>
+                                <h5>Genetic Algorithm</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- gallery item -->
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/3.jpg" %} alt="image">
+                        <div class="item-img-overlay">
+                            <span class="v"></span>
+                            <span class="x"></span>
+                            <div class="v-middle">
+                                <a href="LouisNicolle/img/portfolio/5.jpg"><span class="icon-scope"></span></a>
+                                <h5>Web Design</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- gallery item -->
+                    <div class="col-md-4 item-img">
+                        <img src={% static "LouisNicolle/img/portfolio/4.jpg" %} alt="image">
+                        <div class="item-img-overlay">
+                            <span class="v"></span>
+                            <span class="x"></span>
+                            <div class="v-middle">
+                                <a href="LouisNicolle/img/portfolio/6.jpg"><span class="icon-scope"></span></a>
+                                <h5>Branding</h5>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
-    <!--====== End Clients ======-->
+    <!--====== End Portfolio ======-->
 
     <!--====== Contact ======-->
     <section id="contact" class="contact section-padding">
@@ -453,9 +451,6 @@
 
 <!-- singlePageNav -->
 <script src={% static "LouisNicolle/js/jquery.singlePageNav.min.js" %}></script>
-
-<!-- magnific-popup -->
-<script src={% static "LouisNicolle/js/jquery.magnific-popup.min.js" %}></script>
 
 <!-- owl carousel -->
 <script src={% static "LouisNicolle/js/owl.carousel.min.js" %}></script>

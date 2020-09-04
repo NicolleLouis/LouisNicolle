@@ -466,33 +466,12 @@ p{
 }
 
 /* Social Media */
-
-.facebook{
-	background-color: #3b5998
-}
-
-.twitter{
-	background-color: #0084b4
-}
-
-.youtube{
-	background-color: #bb0000
+.hidden-white{
+    color: white
 }
 
 .linkedin{
 	background-color: #007bb6
-}
-
-.google{
-	background-color: #dd4b39
-}
-
-.instagram{
-	background-color: #e95950
-}
-
-.whatsapp{
-	background-color: #4dc247
 }
 
 .github{
