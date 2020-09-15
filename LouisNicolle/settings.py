@@ -26,8 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'boulder_stats',
     'LouisNicolle',
-    'bio',
 ]
 
 MIDDLEWARE = [
