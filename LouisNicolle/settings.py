@@ -60,9 +60,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LouisNicolle.wsgi.application'
 
-if os.environ.get('DJANGO_DEVELOPMENT'):
-    from LouisNicolle.settings_dev import DATABASES  # or specific overrides
-else:
+if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -73,6 +71,9 @@ else:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+else:
+    if os.environ.get('DJANGO_DEVELOPMENT'):
+        from LouisNicolle.settings_dev import DATABASES  # or specific overrides
 
 AUTH_PASSWORD_VALIDATORS = [
     {
