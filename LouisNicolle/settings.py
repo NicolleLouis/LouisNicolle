@@ -14,7 +14,8 @@ ALLOWED_HOSTS = [
     "www.louisnicolle.com",
     "127.0.0.1",
     "localhost",
-    "LouisNicolle-dev.eba-4b36m3zn.eu-west-3.elasticbeanstalk.com"
+    "LouisNicolle-dev.eba-4b36m3zn.eu-west-3.elasticbeanstalk.com",
+    "172.31.20.103",
 ]
 
 # Application definition
