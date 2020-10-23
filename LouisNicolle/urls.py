@@ -13,6 +13,5 @@ def home(request):
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
-    path('boulder_stats', include("boulder_stats.urls")),
 ]
 
