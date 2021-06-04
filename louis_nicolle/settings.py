@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "production222.eu-west-3.elasticbeanstalk.com",
+    "www.louisnicolle.com",
+    "127.0.0.1",
 ]
 
 
