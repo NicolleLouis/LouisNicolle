@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'louis_nicolle',
 ]
 
@@ -126,4 +127,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
