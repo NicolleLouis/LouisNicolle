@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "production222.eu-west-3.elasticbeanstalk.com",
     "www.louisnicolle.com",
     "127.0.0.1",
+    'localhost',
 ]
 
 
@@ -41,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'storages',
     'louis_nicolle',
+    'aeon',
 ]
 
 MIDDLEWARE = [
