@@ -15,6 +15,9 @@ class Spell(Card):
         blank=True,
     )
 
+    def __str__(self):
+        return "Spell: {}".format(self.name())
+
     class Meta:
         verbose_name = "Spell"
         verbose_name_plural = "Spells"

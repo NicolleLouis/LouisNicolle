@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib import admin
-from django.db.models import UniqueConstraint
 
 from aeon.models.card import Card
 from aeon.models.mage import Mage
 from aeon.models.nemesis import Nemesis
+from stats.models.profile import Profile
 
 
 class Game(models.Model):
@@ -22,6 +22,10 @@ class Game(models.Model):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+    )
+    players = models.ManyToManyField(
+        Profile,
+        blank=True
     )
     number_of_turn = models.IntegerField(
         blank=True,
@@ -58,4 +62,5 @@ class GameAdmin(admin.ModelAdmin):
         'nemesis',
         'cards_in_market',
         'mage',
+        'players',
     )

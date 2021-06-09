@@ -1,9 +1,9 @@
 from django.dispatch import receiver
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save
 
 from django.contrib.auth.models import User
 
-from api.models.profile import Profile
+from stats.models.profile import Profile
 
 
 @receiver(post_save, sender=User)

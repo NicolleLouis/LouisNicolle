@@ -14,6 +14,9 @@ class Relic(Card):
         blank=True,
     )
 
+    def __str__(self):
+        return "Relic: {}".format(self.name())
+
     class Meta:
         verbose_name = "Relic"
         verbose_name_plural = "Relics"

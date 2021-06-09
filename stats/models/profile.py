@@ -41,6 +41,12 @@ class ProfileAdmin(admin.ModelAdmin):
         "get_name",
     )
 
+    search_fields = (
+        "first_name",
+        'last_name',
+        'user__username',
+    )
+
     @staticmethod
     def get_name(instance):
         return str(instance)
