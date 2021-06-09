@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib import admin
 from django.db.models import UniqueConstraint
 
+from aeon.models.extension import Extension
+
 
 class Card(models.Model):
     id = models.AutoField(primary_key=True)
@@ -24,6 +26,12 @@ class Card(models.Model):
     )
     has_utility = models.BooleanField(
         default=False
+    )
+    extension = models.ForeignKey(
+        Extension,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
     )
 
     class Meta:
@@ -55,3 +63,7 @@ class CardAdmin(admin.ModelAdmin):
         'french_name',
         'english_name',
     ]
+
+    autocomplete_fields = (
+        "extension",
+    )

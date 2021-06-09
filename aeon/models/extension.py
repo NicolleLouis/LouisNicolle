@@ -1,11 +1,8 @@
 from django.db import models
 from django.contrib import admin
-from django.db.models import UniqueConstraint
-
-from aeon.models.extension import Extension
 
 
-class Mage(models.Model):
+class Extension(models.Model):
     id = models.AutoField(primary_key=True)
     french_name = models.CharField(
         null=True,
@@ -17,18 +14,6 @@ class Mage(models.Model):
         blank=True,
         max_length=50
     )
-    extension = models.ForeignKey(
-        Extension,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
-
-    class Meta:
-        constraints = [
-            UniqueConstraint(fields=['french_name'], name='unique_mage_french_name'),
-            UniqueConstraint(fields=['english_name'], name='unique_mage_english_name')
-        ]
 
     def __str__(self):
         if self.french_name is not None:
@@ -38,7 +23,7 @@ class Mage(models.Model):
         return str(self.id)
 
 
-class MageAdmin(admin.ModelAdmin):
+class ExtensionAdmin(admin.ModelAdmin):
     list_display = (
         "french_name",
     )
@@ -47,7 +32,3 @@ class MageAdmin(admin.ModelAdmin):
         'french_name',
         'english_name',
     ]
-
-    autocomplete_fields = (
-        "extension",
-    )
