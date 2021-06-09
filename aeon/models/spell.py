@@ -25,7 +25,7 @@ class Spell(Card):
 
 class SpellAdmin(admin.ModelAdmin):
     list_display = (
-        "french_name",
+        "get_name",
         'ether_cost',
         "is_self_destroyable",
         "damage",
@@ -35,4 +35,16 @@ class SpellAdmin(admin.ModelAdmin):
     search_fields = [
         'french_name',
         'english_name',
+        'extension',
     ]
+
+    list_filter = (
+        "extension",
+    )
+
+    autocomplete_fields = ("extension",)
+
+    @staticmethod
+    @admin.display(description='name')
+    def get_name(instance):
+        return str(instance)

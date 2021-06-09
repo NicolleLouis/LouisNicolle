@@ -9,6 +9,10 @@ class Gem(Card):
         null=True,
         blank=True
     )
+    ether_maximum_gain = models.IntegerField(
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return "Gem: {}".format(self.name())
@@ -20,7 +24,7 @@ class Gem(Card):
 
 class GemAdmin(admin.ModelAdmin):
     list_display = (
-        "french_name",
+        "get_name",
         "ether_gain",
         "ether_cost",
         "is_self_destroyable",
@@ -29,4 +33,16 @@ class GemAdmin(admin.ModelAdmin):
     search_fields = [
         'french_name',
         'english_name',
+        'extension',
     ]
+
+    list_filter = (
+        "extension",
+    )
+
+    autocomplete_fields = ("extension",)
+
+    @staticmethod
+    @admin.display(description='name')
+    def get_name(instance):
+        return str(instance)

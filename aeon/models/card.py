@@ -54,7 +54,7 @@ class Card(models.Model):
 
 class CardAdmin(admin.ModelAdmin):
     list_display = (
-        "french_name",
+        "get_name",
         'ether_cost',
         "is_self_destroyable",
     )
@@ -67,3 +67,12 @@ class CardAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         "extension",
     )
+
+    list_filter = (
+        "extension",
+    )
+
+    @staticmethod
+    @admin.display(description='name')
+    def get_name(instance):
+        return str(instance)
