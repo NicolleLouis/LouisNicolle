@@ -27,7 +27,6 @@ class GemAdmin(admin.ModelAdmin):
         "get_name",
         "ether_gain",
         "ether_cost",
-        "is_self_destroyable",
     )
 
     search_fields = [

@@ -44,7 +44,8 @@ class Nemesis(models.Model):
 
 class NemesisAdmin(admin.ModelAdmin):
     list_display = (
-        "french_name",
+        "get_name",
+        "difficulty",
     )
 
     search_fields = [
@@ -55,3 +56,12 @@ class NemesisAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         "extension",
     )
+
+    list_filter = (
+        "extension",
+    )
+
+    @staticmethod
+    @admin.display(description='name')
+    def get_name(instance):
+        return str(instance)

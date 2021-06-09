@@ -40,7 +40,7 @@ class Mage(models.Model):
 
 class MageAdmin(admin.ModelAdmin):
     list_display = (
-        "french_name",
+        "get_name",
     )
 
     search_fields = [
@@ -51,3 +51,12 @@ class MageAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         "extension",
     )
+
+    list_filter = (
+        "extension",
+    )
+
+    @staticmethod
+    @admin.display(description='name')
+    def get_name(instance):
+        return str(instance)
