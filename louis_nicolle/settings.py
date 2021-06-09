@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'louis_nicolle',
     'aeon',
+    'stats',
 ]
 
 MIDDLEWARE = [
