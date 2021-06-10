@@ -3,9 +3,14 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
 
+from louis_nicolle.services.permission_service import PermissionService
+
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+    )
     first_name = models.CharField(
         null=True,
         blank=True,
@@ -50,3 +55,9 @@ class ProfileAdmin(admin.ModelAdmin):
     @staticmethod
     def get_name(instance):
         return str(instance)
+
+    def get_queryset(self, request):
+        queryset = super(ProfileAdmin, self).get_queryset(request)
+        if PermissionService.is_admin(request.user):
+            return queryset
+        return queryset.filter(user=request.user)
