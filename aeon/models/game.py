@@ -127,3 +127,6 @@ class GameAdmin(admin.ModelAdmin):
             }),
         )
         return fieldsets
+
+    def get_changeform_initial_data(self, request):
+        return {'players': request.user.profile}
