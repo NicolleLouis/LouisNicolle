@@ -9,3 +9,7 @@ class ModelService:
             )
         )
         return all_field_name
+
+    @staticmethod
+    def get_model_app_name(model):
+        return model._meta.app_label

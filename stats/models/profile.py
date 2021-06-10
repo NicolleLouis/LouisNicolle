@@ -58,6 +58,6 @@ class ProfileAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = super(ProfileAdmin, self).get_queryset(request)
-        if PermissionService.is_admin(request.user):
+        if PermissionService.is_super_user(request.user):
             return queryset
         return queryset.filter(user=request.user)

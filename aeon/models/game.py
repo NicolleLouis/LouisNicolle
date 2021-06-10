@@ -7,6 +7,7 @@ from aeon.models.card import Card
 from aeon.models.mage import Mage
 from aeon.models.nemesis import Nemesis
 from louis_nicolle.services.model_service import ModelService
+from louis_nicolle.services.permission_service import PermissionService
 from stats.models.profile import Profile
 
 
@@ -130,3 +131,10 @@ class GameAdmin(admin.ModelAdmin):
 
     def get_changeform_initial_data(self, request):
         return {'players': request.user.profile}
+
+    def get_queryset(self, request):
+        aeon = ModelService.get_model_app_name(Game)
+        queryset = super(GameAdmin, self).get_queryset(request)
+        if PermissionService.is_admin(request.user, aeon):
+            return queryset
+        return queryset.filter(players=request.user.profile)
