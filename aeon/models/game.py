@@ -4,15 +4,12 @@ from django.contrib import admin
 from aeon.models.card import Card
 from aeon.models.mage import Mage
 from aeon.models.nemesis import Nemesis
+from louis_nicolle.services.model_service import ModelService
 from stats.models.profile import Profile
 
 
 class Game(models.Model):
     id = models.AutoField(primary_key=True)
-    cards_in_market = models.ManyToManyField(
-        Card,
-        blank=True,
-    )
     mage = models.ManyToManyField(
         Mage,
         blank=True,
@@ -23,16 +20,24 @@ class Game(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    cards_in_market = models.ManyToManyField(
+        Card,
+        blank=True,
+        help_text="All the available cards",
+        verbose_name="Cards",
+    )
     players = models.ManyToManyField(
         Profile,
-        blank=True
+        blank=True,
+        help_text="All the human players (Including you)"
+    )
+    is_win = models.BooleanField(
+        default=False,
+        verbose_name="Victory",
     )
     number_of_turn = models.IntegerField(
         blank=True,
-        null=True
-    )
-    is_win = models.BooleanField(
-        default=False
+        null=True,
     )
     date_played = models.DateTimeField(
         auto_now_add=True,
@@ -49,6 +54,17 @@ class Game(models.Model):
 
 
 class GameAdmin(admin.ModelAdmin):
+    mandatory_fields = [
+        'nemesis',
+        'mage',
+        'cards_in_market',
+        'is_win',
+    ]
+    hidden_field = [
+        "id",
+        "date_played",
+    ]
+
     list_display = (
         'nemesis',
         'is_win',
@@ -64,3 +80,19 @@ class GameAdmin(admin.ModelAdmin):
         'mage',
         'players',
     )
+
+    def get_fieldsets(self, request, obj=None):
+        all_fields = ModelService.get_model_field_names(Game)
+        optional_fields = all_fields
+        optional_fields = set(optional_fields) - set(self.mandatory_fields)
+        optional_fields = list(optional_fields - set(self.hidden_field))
+        optional_fields.sort()
+        fieldsets = (
+            (None, {
+                'fields': self.mandatory_fields
+            }),
+            ('Optionnal', {
+                'fields': optional_fields
+            }),
+        )
+        return fieldsets
