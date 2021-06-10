@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib import admin
 
+from aeon.constants.defeat_type import DefeatType
+from aeon.constants.victory_type import VictoryType
 from aeon.models.card import Card
 from aeon.models.mage import Mage
 from aeon.models.nemesis import Nemesis
@@ -39,6 +41,36 @@ class Game(models.Model):
         blank=True,
         null=True,
     )
+    victory_type = models.CharField(
+        max_length=19,
+        choices=VictoryType.choices,
+        default=VictoryType.UNKNOWN,
+    )
+    defeat_type = models.CharField(
+        max_length=22,
+        choices=DefeatType.choices,
+        default=DefeatType.UNKNOWN,
+    )
+    nemesis_hit_point = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Nemesis HP",
+    )
+    gravehold_hit_point = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Gravehold HP",
+    )
+    mages_hit_point = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Total Mage HP",
+    )
+    number_of_exhausted_mage = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Total number of mage exhausted",
+    )
     date_played = models.DateTimeField(
         auto_now_add=True,
     )
@@ -68,7 +100,6 @@ class GameAdmin(admin.ModelAdmin):
     list_display = (
         'nemesis',
         'is_win',
-        'number_of_turn',
         'date_played',
     )
 
