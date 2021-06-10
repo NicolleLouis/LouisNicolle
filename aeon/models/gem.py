@@ -25,8 +25,8 @@ class Gem(Card):
 class GemAdmin(admin.ModelAdmin):
     list_display = (
         "get_name",
-        "ether_gain",
         "ether_cost",
+        "ether_gain",
     )
 
     search_fields = [
@@ -37,6 +37,10 @@ class GemAdmin(admin.ModelAdmin):
 
     list_filter = (
         "extension",
+    )
+
+    ordering = (
+        "ether_cost",
     )
 
     autocomplete_fields = ("extension",)

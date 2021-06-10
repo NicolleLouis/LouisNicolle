@@ -51,6 +51,10 @@ class SpellAdmin(admin.ModelAdmin):
         "extension",
     )
 
+    ordering = (
+        "ether_cost",
+    )
+
     autocomplete_fields = ("extension",)
 
     @staticmethod

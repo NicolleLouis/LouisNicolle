@@ -72,6 +72,10 @@ class CardAdmin(admin.ModelAdmin):
         "extension",
     )
 
+    ordering = (
+        "ether_cost",
+    )
+
     @staticmethod
     @admin.display(description='name')
     def get_name(instance):
