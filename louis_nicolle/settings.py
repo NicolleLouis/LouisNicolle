@@ -26,7 +26,7 @@ SECRET_KEY = '8jn4m7e4$t%ctifecc*910q^+io+ol38aej9t))9$poo%wc9yl'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "production222.eu-west-3.elasticbeanstalk.com",
+    "prod.eba-hqgpmnmy.eu-west-3.elasticbeanstalk.com",
     "www.louisnicolle.com",
     "127.0.0.1",
     'localhost',
