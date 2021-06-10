@@ -61,6 +61,10 @@ class NemesisAdmin(admin.ModelAdmin):
         "extension",
     )
 
+    ordering = (
+        "difficulty",
+    )
+
     @staticmethod
     @admin.display(description='name')
     def get_name(instance):
