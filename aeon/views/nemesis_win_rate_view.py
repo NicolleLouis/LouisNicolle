@@ -7,5 +7,6 @@ class NemesisWinRateView(BarChartView):
 
     def get_data(self):
         return {
-                "winrate": [100, 25, 64],
+                "Test1": [100, 25, 64],
+                "Test2": [50, 33, 62],
             }

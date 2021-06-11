@@ -1,9 +1,16 @@
 from django.http import JsonResponse
 
+from graph.service.color_service import ColorService
+
 
 class BarChartView:
     def view(self, request):
         return JsonResponse(self.generate_data())
+
+    def get_colors(self, color_list=None):
+        if color_list is None:
+            return ColorService.next_color()
+        return ColorService.next_color(color_list)
 
     def get_x_labels(self):
         raise NotImplementedError(
@@ -21,16 +28,29 @@ class BarChartView:
             """
         )
 
+    def generate_color_option(self, color):
+        color_option = {
+            "backgroundColor": "rgba({}, {}, {}, 0.5)".format(*color),
+            "borderColor": "rgba({}, {}, {}, 1)".format(*color),
+            "pointBackgroundColor": "rgba({}, {}, {}, 1)".format(*color),
+            "pointBorderColor": "#fff",
+        }
+        return color_option
+
     def generate_dataset(self):
         data = self.get_data()
+        color_generator = self.get_colors()
         if not isinstance(data, dict):
             raise SystemError("Data is faulty")
         dataset = []
         for datasource in data:
-            dataset.append({
+            new_dataset = {
                 "label": datasource,
                 "data": data[datasource],
-            })
+            }
+            color = tuple(next(color_generator))
+            new_dataset.update(self.generate_color_option(color))
+            dataset.append(new_dataset)
         return dataset
 
     def generate_data(self):

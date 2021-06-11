@@ -1,0 +1,14 @@
+RED = (255, 25, 25)
+BLUE = (25, 140, 255)
+GREEN = (76, 230, 0)
+ORANGE = (255, 128, 0)
+PURPLE = (221, 51, 255)
+
+
+COLORS = [
+    BLUE,
+    GREEN,
+    RED,
+    ORANGE,
+    PURPLE,
+]
