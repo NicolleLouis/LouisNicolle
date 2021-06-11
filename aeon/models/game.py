@@ -123,7 +123,7 @@ class GameAdmin(admin.ModelAdmin):
             (None, {
                 'fields': self.mandatory_fields
             }),
-            ('Optionnal', {
+            ('Optional', {
                 'fields': optional_fields
             }),
         )
