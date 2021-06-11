@@ -4,13 +4,16 @@ from graph.service.color_service import ColorService
 
 
 class BarChartView:
+    def __init__(self, colors=None):
+        self.colors = colors
+
     def view(self, request):
         return JsonResponse(self.generate_data())
 
-    def get_colors(self, color_list=None):
-        if color_list is None:
+    def get_colors(self):
+        if self.colors is None:
             return ColorService.next_color()
-        return ColorService.next_color(color_list)
+        return ColorService.next_color(self.colors)
 
     def get_x_labels(self):
         raise NotImplementedError(
