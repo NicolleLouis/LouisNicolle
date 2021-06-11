@@ -144,8 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static/"),
-)
-
-STATICFILES_LOCATION = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'louis_nicolle/static')
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
