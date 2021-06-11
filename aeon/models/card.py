@@ -75,6 +75,17 @@ class Card(models.Model):
         null=True,
         blank=True
     )
+    player_maximum_heal = models.IntegerField(
+        null=True,
+        blank=True
+    )
+    gravehold_maximum_heal = models.IntegerField(
+        null=True,
+        blank=True
+    )
+    breach_focus = models.BooleanField(
+        default=False,
+    )
 
     class Meta:
         constraints = [
@@ -116,13 +127,16 @@ class CardAdmin(admin.ModelAdmin):
     ]
     heal_fields = [
         "player_heal",
+        "player_maximum_heal",
         "gravehold_heal",
+        "gravehold_maximum_heal",
     ]
     utility_fields = [
         "is_self_destroyable",
         "has_utility",
         "can_destroy_card",
         "overtime_effect",
+        "breach_focus",
     ]
 
     list_display = (
