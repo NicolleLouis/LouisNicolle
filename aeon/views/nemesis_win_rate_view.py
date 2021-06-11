@@ -29,7 +29,11 @@ class NemesisWinRateView(BarChartView):
 
     @staticmethod
     def generate_options():
-        return LinearAxisService.get_percentage_y_axis_options()
+        options = {}
+
+        y_axis_options = LinearAxisService.get_percentage_y_axis_options()
+        options.update(y_axis_options)
+        return options
 
     @staticmethod
     def get_database_data():
