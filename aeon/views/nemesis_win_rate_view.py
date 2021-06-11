@@ -1,6 +1,7 @@
 from aeon.repository.game_repository import GameRepository
 from aeon.repository.nemesis_repository import NemesisRepository
 from aeon.services.game_service import GameService
+from graph.service.options.linear_axis_service import LinearAxisService
 from graph.views.bar_chart_view import BarChartView
 
 
@@ -25,6 +26,10 @@ class NemesisWinRateView(BarChartView):
         return {
             "Win-Rates": self.nemesis_win_rate,
         }
+
+    @staticmethod
+    def generate_options():
+        return LinearAxisService.get_percentage_y_axis_options()
 
     @staticmethod
     def get_database_data():

@@ -1,14 +1,12 @@
-from django.http import JsonResponse
-
 from graph.service.color_service import ColorService
+from graph.views.chart_view import ChartView
 
 
-class BarChartView:
+class BarChartView(ChartView):
     def __init__(self, colors=None):
+        super().__init__()
         self.colors = colors
-
-    def view(self, request):
-        return JsonResponse(self.generate_data())
+        self.type = "bar"
 
     def get_colors(self):
         if self.colors is None:
@@ -31,7 +29,8 @@ class BarChartView:
             """
         )
 
-    def generate_color_option(self, color):
+    @staticmethod
+    def generate_color_option(color):
         color_option = {
             "backgroundColor": "rgba({}, {}, {}, 0.5)".format(*color),
             "borderColor": "rgba({}, {}, {}, 1)".format(*color),
@@ -42,10 +41,12 @@ class BarChartView:
 
     def generate_dataset(self):
         data = self.get_data()
-        color_generator = self.get_colors()
         if not isinstance(data, dict):
             raise SystemError("Data is faulty")
+
+        color_generator = self.get_colors()
         dataset = []
+
         for datasource in data:
             new_dataset = {
                 "label": datasource,
