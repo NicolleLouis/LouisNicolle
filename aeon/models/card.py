@@ -67,6 +67,14 @@ class Card(models.Model):
     overtime_effect = models.BooleanField(
         default=False
     )
+    player_heal = models.IntegerField(
+        null=True,
+        blank=True
+    )
+    gravehold_heal = models.IntegerField(
+        null=True,
+        blank=True
+    )
 
     class Meta:
         constraints = [
@@ -105,6 +113,10 @@ class CardAdmin(admin.ModelAdmin):
     damage_fields = [
         "damage",
         "maximum_damage",
+    ]
+    heal_fields = [
+        "player_heal",
+        "gravehold_heal",
     ]
     utility_fields = [
         "is_self_destroyable",
@@ -149,6 +161,7 @@ class CardAdmin(admin.ModelAdmin):
         other_fields = set(other_fields) - set(self.mandatory_fields)
         other_fields = other_fields - set(self.hidden_fields)
         other_fields = other_fields - set(self.damage_fields)
+        other_fields = other_fields - set(self.heal_fields)
         other_fields = other_fields - set(self.ether_fields)
         other_fields = list(other_fields - set(self.utility_fields))
         other_fields.sort()
@@ -161,6 +174,9 @@ class CardAdmin(admin.ModelAdmin):
             }),
             ('Ether', {
                 'fields': self.ether_fields
+            }),
+            ('Heal', {
+                'fields': self.heal_fields
             }),
             ('Utility', {
                 'fields': self.utility_fields
