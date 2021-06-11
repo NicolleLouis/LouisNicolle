@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'louis_nicolle',
     'aeon',
     'stats',
+    'graph',
 ]
 
 MIDDLEWARE = [
@@ -143,6 +144,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static/"),
+)
 
 STATICFILES_LOCATION = 'static'
