@@ -35,10 +35,10 @@ class Nemesis(models.Model):
         ]
 
     def __str__(self):
-        if self.french_name is not None:
-            return self.french_name
         if self.english_name is not None:
             return self.english_name
+        if self.french_name is not None:
+            return self.french_name
         return str(self.id)
 
 

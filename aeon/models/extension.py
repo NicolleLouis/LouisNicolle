@@ -16,19 +16,24 @@ class Extension(models.Model):
     )
 
     def __str__(self):
-        if self.french_name is not None:
-            return self.french_name
         if self.english_name is not None:
             return self.english_name
+        if self.french_name is not None:
+            return self.french_name
         return str(self.id)
 
 
 class ExtensionAdmin(admin.ModelAdmin):
     list_display = (
-        "french_name",
+        "get_name",
     )
 
     search_fields = [
         'french_name',
         'english_name',
     ]
+
+    @staticmethod
+    @admin.display(description='name')
+    def get_name(instance):
+        return str(instance)
