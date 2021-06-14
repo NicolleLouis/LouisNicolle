@@ -26,3 +26,25 @@ class LinearAxisService:
                 }
             }
         }
+
+    @staticmethod
+    def get_x_linear_axis_options():
+        return {
+            "scales": {
+                "x": {
+                    'type': 'linear',
+                }
+            }
+        }
+
+    @staticmethod
+    def get_x_tick_step_size_options(step_size):
+        return {
+            "scales": {
+                "x": {
+                    "ticks": {
+                        "stepSize": step_size
+                    }
+                }
+            }
+        }

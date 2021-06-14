@@ -32,10 +32,16 @@ class NemesisDifficultyWinRateView(LineChartView):
         options = {}
 
         y_axis_options = LinearAxisService.get_percentage_y_axis_options()
-        options = OptionService.deep_update(options, y_axis_options)
+        OptionService.deep_update(options, y_axis_options)
 
-        x_axis_options = LinearAxisService.get_title_x_axis_options("Nemesis Difficulty")
-        options = OptionService.deep_update(options, x_axis_options)
+        x_title_axis_options = LinearAxisService.get_title_x_axis_options("Nemesis Difficulty")
+        OptionService.deep_update(options, x_title_axis_options)
+
+        x_linear_axis_options = LinearAxisService.get_x_linear_axis_options()
+        OptionService.deep_update(options, x_linear_axis_options)
+
+        x_stepsize_options = LinearAxisService.get_x_tick_step_size_options(1)
+        OptionService.deep_update(options, x_stepsize_options)
 
         return options
 
