@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from aeon.repository.nemesis_repository import NemesisRepository
 from graph.service.options.linear_axis_service import LinearAxisService
 from graph.service.options.option_service import OptionService
@@ -5,7 +6,18 @@ from graph.views.line_chart_view import LineChartView
 from stats.service.win_rate_service import WinRateService
 
 
-def nemesis_difficulty_win_rate_view(request):
+def render_nemesis_difficulty_win_rate_view(request):
+    return render(
+        request=request,
+        template_name='graph/single_graph.html',
+        context={
+            "title": "Win-Rate by Nemesis Difficulty",
+            'data_url': "nemesis_difficulty_win_rate_data",
+        }
+    )
+
+
+def nemesis_difficulty_win_rate_data_view(request):
     view = NemesisDifficultyWinRateView()
     return view.view(request)
 

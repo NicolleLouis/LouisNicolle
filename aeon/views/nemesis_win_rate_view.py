@@ -1,9 +1,22 @@
+from django.shortcuts import render
+
 from aeon.repository.nemesis_repository import NemesisRepository
 from graph.service.options.linear_axis_service import LinearAxisService
 from graph.views.bar_chart_view import BarChartView
 
 
-def nemesis_win_rate_view(request):
+def render_nemesis_win_rate_view(request):
+    return render(
+        request=request,
+        template_name='graph/single_graph.html',
+        context={
+            "title": "Win-Rate by Nemesis",
+            'data_url': "nemesis_win_rate_data",
+        }
+    )
+
+
+def nemesis_win_rate_data_view(request):
     view = NemesisWinRateView()
     return view.view(request)
 

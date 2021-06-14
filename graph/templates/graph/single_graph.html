@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Nemesis Win Rate{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <h1>Win Rate by Nemesis Difficulty</h1>
+    <h1>{{ title }}</h1>
 
     <canvas id="myChart" width="500" height="230"></canvas>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
     <script type="text/javascript">
-        $.get('{% url "nemesis_difficulty_win_rate_data" %}', function (data) {
+        $.get('{% url data_url %}', function (data) {
             var ctx = $("#myChart").get(0).getContext("2d");
             new Chart(ctx, data);
         });
