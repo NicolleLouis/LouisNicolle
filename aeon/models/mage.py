@@ -71,6 +71,10 @@ class MageAdmin(admin.ModelAdmin):
         "win_rate",
     )
 
+    ordering = (
+        "win_rate",
+    )
+
     @staticmethod
     @admin.display(description='name')
     def get_name(instance):
