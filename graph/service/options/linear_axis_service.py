@@ -13,3 +13,16 @@ class LinearAxisService:
                 }
             }
         }
+
+    @staticmethod
+    def get_title_x_axis_options(title):
+        return {
+            "scales": {
+                "x": {
+                    "title": {
+                        "display": True,
+                        "text": title,
+                    }
+                }
+            }
+        }
