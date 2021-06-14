@@ -5,12 +5,6 @@ from aeon.services.card_service import CardService
 from louis_nicolle.services.model_service import ModelService
 
 
-@admin.action(description='Compute Card data')
-def compute_data(modeladmin, request, queryset):
-    for card in queryset:
-        CardService.compute_card_data(card)
-
-
 class CardAdmin(admin.ModelAdmin):
     mandatory_fields = [
         'french_name',
@@ -81,7 +75,7 @@ class CardAdmin(admin.ModelAdmin):
     )
 
     actions = (
-        compute_data,
+        "compute_data",
     )
 
     @staticmethod
@@ -124,3 +118,8 @@ class CardAdmin(admin.ModelAdmin):
             }),
         )
         return fieldsets
+
+    @admin.action(description='Compute Card data', permissions=['change'])
+    def compute_data(self, request, queryset):
+        for card in queryset:
+            CardService.compute_card_data(card)

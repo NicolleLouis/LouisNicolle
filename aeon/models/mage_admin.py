@@ -3,12 +3,6 @@ from django.contrib import admin
 from aeon.services.mage_service import MageService
 
 
-@admin.action(description='Compute Mage data')
-def compute_data(modeladmin, request, queryset):
-    for mage in queryset:
-        MageService.compute_mage_data(mage)
-
-
 class MageAdmin(admin.ModelAdmin):
     list_display = (
         "get_name",
@@ -39,10 +33,15 @@ class MageAdmin(admin.ModelAdmin):
     )
 
     actions = (
-        compute_data,
+        "compute_data",
     )
 
     @staticmethod
     @admin.display(description='name')
     def get_name(instance):
         return str(instance)
+
+    @admin.action(description='Compute Mage data', permissions=['change'])
+    def compute_data(self, request, queryset):
+        for mage in queryset:
+            MageService.compute_mage_data(mage)

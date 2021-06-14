@@ -3,12 +3,6 @@ from django.contrib import admin
 from aeon.services.nemesis_service import NemesisService
 
 
-@admin.action(description='Compute Nemesis data')
-def compute_data(modeladmin, request, queryset):
-    for nemesis in queryset:
-        NemesisService.compute_nemesis_data(nemesis)
-
-
 class NemesisAdmin(admin.ModelAdmin):
     list_display = (
         "get_name",
@@ -40,10 +34,15 @@ class NemesisAdmin(admin.ModelAdmin):
     )
 
     actions = (
-        compute_data,
+        "compute_data",
     )
 
     @staticmethod
     @admin.display(description='name')
     def get_name(instance):
         return str(instance)
+
+    @admin.action(description='Compute Nemesis data', permissions=['change'])
+    def compute_data(self, request, queryset):
+        for nemesis in queryset:
+            NemesisService.compute_nemesis_data(nemesis)
