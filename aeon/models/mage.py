@@ -23,6 +23,14 @@ class Mage(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    game_number = models.IntegerField(
+        null=True,
+        blank=True,
+    )
+    win_rate = models.FloatField(
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         constraints = [
@@ -41,6 +49,8 @@ class Mage(models.Model):
 class MageAdmin(admin.ModelAdmin):
     list_display = (
         "get_name",
+        "game_number",
+        "win_rate",
     )
 
     search_fields = [
@@ -54,6 +64,11 @@ class MageAdmin(admin.ModelAdmin):
 
     list_filter = (
         "extension",
+    )
+
+    readonly_fields = (
+        "game_number",
+        "win_rate",
     )
 
     @staticmethod

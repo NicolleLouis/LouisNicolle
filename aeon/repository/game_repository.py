@@ -11,3 +11,9 @@ class GameRepository:
         queryset = GameRepository.get_queryset()
         queryset = queryset.filter(nemesis=nemesis)
         return queryset
+
+    @staticmethod
+    def get_all_game_by_mage(mage):
+        queryset = GameRepository.get_queryset()
+        queryset = queryset.filter(mage=mage)
+        return queryset

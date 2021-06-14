@@ -86,6 +86,14 @@ class Card(models.Model):
     breach_focus = models.BooleanField(
         default=False,
     )
+    game_number = models.IntegerField(
+        null=True,
+        blank=True,
+    )
+    win_rate = models.FloatField(
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         constraints = [
@@ -138,11 +146,16 @@ class CardAdmin(admin.ModelAdmin):
         "overtime_effect",
         "breach_focus",
     ]
+    data_fields = [
+        "game_number",
+        "win_rate",
+    ]
 
     list_display = (
         "get_name",
         'ether_cost',
-        "card_type",
+        "game_number",
+        "win_rate",
     )
 
     search_fields = [
@@ -164,6 +177,11 @@ class CardAdmin(admin.ModelAdmin):
         "card_type",
     )
 
+    readonly_fields = (
+        "game_number",
+        "win_rate",
+    )
+
     @staticmethod
     @admin.display(description='name')
     def get_name(instance):
@@ -177,6 +195,7 @@ class CardAdmin(admin.ModelAdmin):
         other_fields = other_fields - set(self.damage_fields)
         other_fields = other_fields - set(self.heal_fields)
         other_fields = other_fields - set(self.ether_fields)
+        other_fields = other_fields - set(self.data_fields)
         other_fields = list(other_fields - set(self.utility_fields))
         other_fields.sort()
         fieldsets = (
@@ -197,6 +216,9 @@ class CardAdmin(admin.ModelAdmin):
             }),
             ('Other', {
                 'fields': other_fields
+            }),
+            ('Read-Only', {
+                'fields': self.readonly_fields
             }),
         )
         return fieldsets
