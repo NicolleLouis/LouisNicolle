@@ -40,8 +40,7 @@ class NemesisWinRateView(BarChartView):
         nemesis_queryset = NemesisRepository.get_queryset()
         nemesis_win_rates = []
         for nemesis in nemesis_queryset:
-            game_queryset = GameRepository.get_all_game_by_nemesis(nemesis=nemesis)
-            win_rate = GameService.get_win_rate(game_queryset)
+            win_rate = nemesis.win_rate
             if win_rate is not None:
                 nemesis_win_rates.append({
                     "nemesis_name": str(nemesis),
