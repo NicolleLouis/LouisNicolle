@@ -1,10 +1,13 @@
 from django.contrib import admin
 
-from aeon.models.card import Card, CardAdmin
+from aeon.models.card import Card
+from aeon.models.card_admin import CardAdmin
 from aeon.models.extension import Extension, ExtensionAdmin
 from aeon.models.game import Game, GameAdmin
-from aeon.models.mage import Mage, MageAdmin
-from aeon.models.nemesis import Nemesis, NemesisAdmin
+from aeon.models.mage import Mage
+from aeon.models.mage_admin import MageAdmin
+from aeon.models.nemesis import Nemesis
+from aeon.models.nemesis_admin import NemesisAdmin
 
 admin.site.register(Card, CardAdmin)
 admin.site.register(Game, GameAdmin)

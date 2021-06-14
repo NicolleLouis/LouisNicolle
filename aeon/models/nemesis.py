@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib import admin
 from django.db.models import UniqueConstraint
 
 from aeon.models.extension import Extension
@@ -48,39 +47,3 @@ class Nemesis(models.Model):
         if self.french_name is not None:
             return self.french_name
         return str(self.id)
-
-
-class NemesisAdmin(admin.ModelAdmin):
-    list_display = (
-        "get_name",
-        "difficulty",
-        "game_number",
-        "win_rate",
-    )
-
-    search_fields = [
-        'french_name',
-        'english_name',
-    ]
-
-    autocomplete_fields = (
-        "extension",
-    )
-
-    list_filter = (
-        "extension",
-    )
-
-    ordering = (
-        "difficulty",
-    )
-
-    readonly_fields = (
-        "game_number",
-        "win_rate",
-    )
-
-    @staticmethod
-    @admin.display(description='name')
-    def get_name(instance):
-        return str(instance)
