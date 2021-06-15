@@ -39,6 +39,10 @@ class BarChartView(ChartView):
         }
         return color_option
 
+    @staticmethod
+    def get_y_axe_id(datasource):
+        return "y"
+
     def generate_dataset(self):
         data = self.get_data()
         if not isinstance(data, dict):
@@ -51,6 +55,7 @@ class BarChartView(ChartView):
             new_dataset = {
                 "label": datasource,
                 "data": data[datasource],
+                "yAxisID": self.get_y_axe_id(datasource)
             }
             color = tuple(next(color_generator))
             new_dataset.update(self.generate_color_option(color))

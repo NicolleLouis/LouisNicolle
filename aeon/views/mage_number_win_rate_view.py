@@ -27,19 +27,28 @@ class MageNumberWinRateView(BarChartView):
     def __init__(self):
         super().__init__()
         self.possible_mage_number = [1, 2, 3, 4]
-        mage_number, win_rate = self.split_database_data(
+        mage_number, win_rate, game_number = self.split_database_data(
             self.get_database_data()
         )
         self.mage_number = mage_number
         self.win_rate = win_rate
+        self.game_number = game_number
+        self.win_rate_datasource = "Win-Rates"
+        self.game_number_datasource = "Game Numbers"
 
     def get_x_labels(self):
         return self.mage_number
 
     def get_data(self):
         return {
-            "Win-Rates": self.win_rate,
+            self.win_rate_datasource: self.win_rate,
+            self.game_number_datasource: self.game_number,
         }
+
+    def get_y_axe_id(self, datasource):
+        if datasource == self.game_number_datasource:
+            return 'y_game_number'
+        return 'y'
 
     @staticmethod
     def generate_options():
@@ -47,6 +56,12 @@ class MageNumberWinRateView(BarChartView):
 
         y_axis_options = LinearAxisService.get_percentage_y_axis_options()
         OptionService.deep_update(options, y_axis_options)
+
+        second_y_axis_options = LinearAxisService.get_title_second_axis(
+            axis_name='y_game_number',
+            axis_title='Number of Games',
+        )
+        OptionService.deep_update(options, second_y_axis_options)
 
         x_title_axis_options = LinearAxisService.get_title_x_axis_options("Mage Number")
         OptionService.deep_update(options, x_title_axis_options)
@@ -68,7 +83,8 @@ class MageNumberWinRateView(BarChartView):
             if win_rate is not None:
                 mage_number_win_rates.append({
                     "mage_number": mage_number,
-                    "win_rate": win_rate
+                    "win_rate": win_rate,
+                    "game_number": games.count()
                 })
         return mage_number_win_rates
 
@@ -86,4 +102,10 @@ class MageNumberWinRateView(BarChartView):
                 database_data
             )
         )
-        return mage_number, win_rate
+        game_number = list(
+            map(
+                lambda nemesis_data: nemesis_data["game_number"],
+                database_data
+            )
+        )
+        return mage_number, win_rate, game_number

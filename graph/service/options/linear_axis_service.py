@@ -1,14 +1,31 @@
 class LinearAxisService:
     @staticmethod
-    def get_percentage_y_axis_options():
+    def get_percentage_y_axis_options(axis_name="y"):
         return {
             "scales": {
-                "y": {
+                axis_name: {
                     "suggestedMin": 0,
                     "suggestedMax": 100,
                     "title": {
                         "display": True,
                         "text": "Percentage",
+                    }
+                }
+            }
+        }
+
+    @staticmethod
+    def get_title_second_axis(axis_name, axis_title):
+        return {
+            "scales": {
+                axis_name: {
+                    "position": "right",
+                    'grid': {
+                        "display": False,
+                    },
+                    "title": {
+                        "display": True,
+                        "text": axis_title,
                     }
                 }
             }
