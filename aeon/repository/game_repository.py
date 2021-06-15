@@ -23,3 +23,9 @@ class GameRepository:
         queryset = GameRepository.get_queryset()
         queryset = queryset.filter(cards_in_market=card)
         return queryset
+
+    @staticmethod
+    def get_by_mage_number(mage_number):
+        queryset = GameRepository.get_queryset()
+        queryset = queryset.filter(number_of_mage=mage_number)
+        return queryset

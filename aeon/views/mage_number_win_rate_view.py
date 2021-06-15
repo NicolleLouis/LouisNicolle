@@ -1,38 +1,40 @@
 from django.shortcuts import render
-from aeon.repository.nemesis_repository import NemesisRepository
+
+from aeon.repository.game_repository import GameRepository
+from aeon.services.game_service import GameService
 from graph.service.options.linear_axis_service import LinearAxisService
 from graph.service.options.option_service import OptionService
-from graph.views.line_chart_view import LineChartView
-from stats.service.win_rate_service import WinRateService
+from graph.views.bar_chart_view import BarChartView
 
 
-def render_nemesis_difficulty_win_rate_view(request):
+def render_mage_number_win_rate_view(request):
     return render(
         request=request,
         template_name='graph/single_graph.html',
         context={
-            "title": "Win-Rate by Nemesis Difficulty",
-            'data_url': "nemesis_difficulty_win_rate_data",
+            "title": "Win-Rate by mages number",
+            'data_url': "mage_number_win_rate_data",
         }
     )
 
 
-def nemesis_difficulty_win_rate_data_view(request):
-    view = NemesisDifficultyWinRateView()
+def mage_number_win_rate_data_view(request):
+    view = MageNumberWinRateView()
     return view.view(request)
 
 
-class NemesisDifficultyWinRateView(LineChartView):
+class MageNumberWinRateView(BarChartView):
     def __init__(self):
         super().__init__()
-        nemesis_difficulty, win_rate = self.split_database_data(
+        self.possible_mage_number = [1, 2, 3, 4]
+        mage_number, win_rate = self.split_database_data(
             self.get_database_data()
         )
-        self.nemesis_difficulty = nemesis_difficulty
+        self.mage_number = mage_number
         self.win_rate = win_rate
 
     def get_x_labels(self):
-        return self.nemesis_difficulty
+        return self.mage_number
 
     def get_data(self):
         return {
@@ -46,7 +48,7 @@ class NemesisDifficultyWinRateView(LineChartView):
         y_axis_options = LinearAxisService.get_percentage_y_axis_options()
         OptionService.deep_update(options, y_axis_options)
 
-        x_title_axis_options = LinearAxisService.get_title_x_axis_options("Nemesis Difficulty")
+        x_title_axis_options = LinearAxisService.get_title_x_axis_options("Mage Number")
         OptionService.deep_update(options, x_title_axis_options)
 
         x_linear_axis_options = LinearAxisService.get_x_linear_axis_options()
@@ -57,26 +59,24 @@ class NemesisDifficultyWinRateView(LineChartView):
 
         return options
 
-    @staticmethod
-    def get_database_data():
-        difficulty_list = NemesisRepository.get_unique_difficulties()
-        nemesis_difficulty_win_rates = []
-        for difficulty in difficulty_list:
-            nemesis_list = NemesisRepository.get_by_difficulty(difficulty)
-            win_rate_service = WinRateService(nemesis_list)
-            win_rate = win_rate_service.get_data()
+    def get_database_data(self):
+        mage_number_list = self.possible_mage_number
+        mage_number_win_rates = []
+        for mage_number in mage_number_list:
+            games = GameRepository.get_by_mage_number(mage_number)
+            win_rate = GameService.get_win_rate(games)
             if win_rate is not None:
-                nemesis_difficulty_win_rates.append({
-                    "nemesis_difficulty": str(difficulty),
+                mage_number_win_rates.append({
+                    "mage_number": mage_number,
                     "win_rate": win_rate
                 })
-        return nemesis_difficulty_win_rates
+        return mage_number_win_rates
 
     @staticmethod
     def split_database_data(database_data):
-        nemesis_difficulty = list(
+        mage_number = list(
             map(
-                lambda nemesis_data: nemesis_data["nemesis_difficulty"],
+                lambda nemesis_data: nemesis_data["mage_number"],
                 database_data
             )
         )
@@ -86,4 +86,4 @@ class NemesisDifficultyWinRateView(LineChartView):
                 database_data
             )
         )
-        return nemesis_difficulty, win_rate
+        return mage_number, win_rate
