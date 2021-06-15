@@ -9,17 +9,20 @@ class BarChartView(ChartView):
         self.type = "bar"
 
     def get_colors(self):
+        """Change color function, you should probably just change the color range in init"""
         if self.colors is None:
             return ColorService.next_color()
         return ColorService.next_color(self.colors)
 
     def get_x_labels(self):
+        """Change the X labels"""
         raise NotImplementedError(
             "You should return a labels list ex: "
             "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']"
         )
 
     def get_data(self):
+        """Change the graph data"""
         raise NotImplementedError(
             """Should return a dict of this type:
             {
@@ -31,6 +34,7 @@ class BarChartView(ChartView):
 
     @staticmethod
     def generate_color_option(color):
+        """Change the color options, you should probably not touch"""
         color_option = {
             "backgroundColor": "rgba({}, {}, {}, 0.5)".format(*color),
             "borderColor": "rgba({}, {}, {}, 1)".format(*color),
@@ -41,6 +45,7 @@ class BarChartView(ChartView):
 
     @staticmethod
     def get_y_axe_id(datasource):
+        """Change the y axis for each datasource"""
         return "y"
 
     def generate_dataset(self):
