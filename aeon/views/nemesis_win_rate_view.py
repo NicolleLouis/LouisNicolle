@@ -61,6 +61,10 @@ class NemesisWinRateView(BarChartView):
                     "nemesis_win_rate": win_rate,
                     "game_number": game_number,
                 })
+        nemesis_win_rates.sort(
+            key=lambda nemesis_win_rate: nemesis_win_rate["game_number"],
+            reverse=True
+        )
         return nemesis_win_rates
 
     @staticmethod
