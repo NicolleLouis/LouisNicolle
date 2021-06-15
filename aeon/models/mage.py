@@ -31,6 +31,14 @@ class Mage(models.Model):
         blank=True,
     )
 
+    @property
+    def name(self):
+        if self.english_name is not None:
+            return self.english_name
+        if self.french_name is not None:
+            return self.french_name
+        return str(self.id)
+
     class Meta:
         constraints = [
             UniqueConstraint(fields=['french_name'], name='unique_mage_french_name'),
@@ -38,8 +46,4 @@ class Mage(models.Model):
         ]
 
     def __str__(self):
-        if self.english_name is not None:
-            return self.english_name
-        if self.french_name is not None:
-            return self.french_name
-        return str(self.id)
+        return self.name

@@ -6,6 +6,7 @@ from aeon.constants.victory_type import VictoryType
 from aeon.models.card import Card
 from aeon.models.mage import Mage
 from aeon.models.nemesis import Nemesis
+from aeon.services.game_service import GameService
 from louis_nicolle.services.model_service import ModelService
 from louis_nicolle.services.permission_service import PermissionService
 from stats.models.profile import Profile
@@ -104,6 +105,7 @@ class GameAdmin(admin.ModelAdmin):
 
     list_display = (
         'nemesis',
+        "get_mages_name",
         'is_win',
         'date_played',
     )
@@ -119,6 +121,10 @@ class GameAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         "number_of_mage",
+    )
+
+    actions = (
+        "compute_data",
     )
 
     def get_fieldsets(self, request, obj=None):
@@ -150,3 +156,19 @@ class GameAdmin(admin.ModelAdmin):
         if PermissionService.is_admin(request.user, aeon):
             return queryset
         return queryset.filter(players=request.user.profile)
+
+    @admin.action(description='Compute Game data', permissions=['change'])
+    def compute_data(self, request, queryset):
+        for game in queryset:
+            GameService.update_mage_number(game)
+
+    @staticmethod
+    def get_mages_name(game):
+        mages = game.mage.all()
+        mages = list(
+            map(
+                lambda mage: mage.name,
+                mages
+            )
+        )
+        return mages

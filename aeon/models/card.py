@@ -93,12 +93,7 @@ class Card(models.Model):
         blank=True,
     )
 
-    class Meta:
-        constraints = [
-            UniqueConstraint(fields=['french_name'], name='unique_card_french_name'),
-            UniqueConstraint(fields=['english_name'], name='unique_card_english_name')
-        ]
-
+    @property
     def name(self):
         name = str(self.id)
         if self.french_name is not None:
@@ -107,5 +102,11 @@ class Card(models.Model):
             name = self.english_name
         return name
 
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['french_name'], name='unique_card_french_name'),
+            UniqueConstraint(fields=['english_name'], name='unique_card_english_name')
+        ]
+
     def __str__(self):
-        return self.name()
+        return self.name
