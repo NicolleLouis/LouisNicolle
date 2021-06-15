@@ -38,10 +38,6 @@ class CardAdmin(admin.ModelAdmin):
         "overtime_effect",
         "breach_focus",
     ]
-    data_fields = [
-        "game_number",
-        "win_rate",
-    ]
 
     list_display = (
         "get_name",
@@ -91,7 +87,7 @@ class CardAdmin(admin.ModelAdmin):
         other_fields = other_fields - set(self.damage_fields)
         other_fields = other_fields - set(self.heal_fields)
         other_fields = other_fields - set(self.ether_fields)
-        other_fields = other_fields - set(self.data_fields)
+        other_fields = other_fields - set(self.readonly_fields)
         other_fields = list(other_fields - set(self.utility_fields))
         other_fields.sort()
         fieldsets = (

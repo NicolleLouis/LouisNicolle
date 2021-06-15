@@ -14,3 +14,9 @@ class GameService:
         number_of_victories = sum(game_victories)
         victory_ratio = number_of_victories/number_of_games
         return Utils.ratio_to_percentage(victory_ratio)
+
+    @staticmethod
+    def update_mage_number(game):
+        mages_number = game.mage.all().count()
+        game.number_of_mage = mages_number
+        game.save()

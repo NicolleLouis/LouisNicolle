@@ -3,6 +3,7 @@ from django.db.models.signals import post_save, m2m_changed
 
 from aeon.models.game import Game
 from aeon.services.card_service import CardService
+from aeon.services.game_service import GameService
 from aeon.services.mage_service import MageService
 from aeon.services.nemesis_service import NemesisService
 
@@ -10,6 +11,11 @@ from aeon.services.nemesis_service import NemesisService
 @receiver(post_save, sender=Game)
 def compute_data_nemesis(sender, instance, created, **kwargs):
     NemesisService.compute_nemesis_data(instance.nemesis)
+
+
+@receiver(m2m_changed, sender=Game.mage.through)
+def compute_mage_number(sender, instance, **kwargs):
+    GameService.update_mage_number(instance)
 
 
 @receiver(m2m_changed, sender=Game.mage.through)

@@ -72,6 +72,10 @@ class Game(models.Model):
         null=True,
         verbose_name="Total number of mage exhausted",
     )
+    number_of_mage = models.IntegerField(
+        blank=True,
+        null=True,
+    )
     date_played = models.DateTimeField(
         auto_now_add=True,
     )
@@ -113,10 +117,15 @@ class GameAdmin(admin.ModelAdmin):
         'players',
     )
 
+    readonly_fields = (
+        "number_of_mage",
+    )
+
     def get_fieldsets(self, request, obj=None):
         all_fields = ModelService.get_model_field_names(Game)
         optional_fields = all_fields
         optional_fields = set(optional_fields) - set(self.mandatory_fields)
+        optional_fields = set(optional_fields) - set(self.readonly_fields)
         optional_fields = list(optional_fields - set(self.hidden_field))
         optional_fields.sort()
         fieldsets = (
@@ -125,6 +134,9 @@ class GameAdmin(admin.ModelAdmin):
             }),
             ('Optional', {
                 'fields': optional_fields
+            }),
+            ('Read-Only', {
+                'fields': self.readonly_fields
             }),
         )
         return fieldsets
