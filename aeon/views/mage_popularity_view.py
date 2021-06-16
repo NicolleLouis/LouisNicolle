@@ -67,6 +67,10 @@ class MagePopularityView(PieChartView):
                 "mage": "Others",
                 "popularity": other_popularity,
             })
+        mage_popularity.sort(
+            key=lambda mage: mage["popularity"],
+            reverse=True
+        )
         return mage_popularity
 
     @staticmethod
