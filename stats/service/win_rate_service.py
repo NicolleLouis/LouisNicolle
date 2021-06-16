@@ -21,8 +21,10 @@ class WinRateService:
 
     def get_data(self):
         if self.total_win_rate is None:
-            return None
-        return round(self.total_win_rate, 2)
+            win_rate = None
+        else:
+            win_rate = round(self.total_win_rate, 2)
+        return win_rate, self.total_game_number
 
     def compute_total_win_rate(self):
         for object in self.list_object:

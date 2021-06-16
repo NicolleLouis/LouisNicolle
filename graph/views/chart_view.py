@@ -4,6 +4,9 @@ from graph.service.options.option_service import OptionService
 
 
 class ChartView:
+    line_type = 'line'
+    bar_type = 'bar'
+
     def __init__(self):
         self.type = None
 
@@ -31,9 +34,15 @@ class ChartView:
         return options
 
     def generate_chart(self):
-        chart = {
-            "type": self.type,
-            "data": self.generate_data(),
-            "options": self.generate_options(),
-        }
+        if self.type is not None:
+            chart = {
+                "type": self.type,
+                "data": self.generate_data(),
+                "options": self.generate_options(),
+            }
+        else:
+            chart = {
+                "data": self.generate_data(),
+                "options": self.generate_options(),
+            }
         return chart
