@@ -3,12 +3,18 @@ BLUE = (25, 140, 255)
 GREEN = (76, 230, 0)
 ORANGE = (255, 128, 0)
 PURPLE = (221, 51, 255)
+YELLOW = (255, 255, 0)
+DARK_BLUE = (0, 0, 128)
+STRANGE_GREEN = (0, 204, 136)
 
 
 COLORS = [
     BLUE,
+    STRANGE_GREEN,
     GREEN,
-    RED,
+    YELLOW,
     ORANGE,
+    RED,
     PURPLE,
+    DARK_BLUE,
 ]
