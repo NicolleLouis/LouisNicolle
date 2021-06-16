@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 
 from aeon.constants.defeat_type import DefeatType
+from aeon.constants.difficulty_type import DifficultyType
 from aeon.constants.victory_type import VictoryType
 from aeon.models.card import Card
 from aeon.models.mage import Mage
@@ -76,6 +77,12 @@ class Game(models.Model):
     number_of_mage = models.IntegerField(
         blank=True,
         null=True,
+    )
+    game_difficulty = models.CharField(
+        max_length=8,
+        choices=DifficultyType.choices,
+        default=DifficultyType.STANDARD,
+
     )
     date_played = models.DateTimeField(
         auto_now_add=True,
