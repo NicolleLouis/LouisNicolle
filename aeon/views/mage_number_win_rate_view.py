@@ -2,8 +2,7 @@ from django.shortcuts import render
 
 from aeon.repository.game_repository import GameRepository
 from aeon.services.game_service import GameService
-from graph.service.options.linear_axis_service import LinearAxisService
-from graph.service.options.option_service import OptionService
+from graph.service.options.axis_service import AxisService
 from graph.views.bar_chart_view import BarChartView
 
 
@@ -51,28 +50,19 @@ class MageNumberWinRateView(BarChartView):
         return 'y'
 
     @staticmethod
-    def generate_options():
-        options = {}
-
-        y_axis_options = LinearAxisService.get_percentage_y_axis_options()
-        OptionService.deep_update(options, y_axis_options)
-
-        second_y_axis_options = LinearAxisService.get_title_second_axis(
-            axis_name='y_game_number',
-            axis_title='Number of Games',
-        )
-        OptionService.deep_update(options, second_y_axis_options)
-
-        x_title_axis_options = LinearAxisService.get_title_x_axis_options("Mage Number")
-        OptionService.deep_update(options, x_title_axis_options)
-
-        x_linear_axis_options = LinearAxisService.get_x_linear_axis_options()
-        OptionService.deep_update(options, x_linear_axis_options)
-
-        x_stepsize_options = LinearAxisService.get_x_tick_step_size_options(1)
-        OptionService.deep_update(options, x_stepsize_options)
-
-        return options
+    def get_options():
+        return [
+            AxisService.percentage_y_axis(),
+            AxisService.title_second_axis(
+                axis_name='y_game_number',
+                axis_title='Number of Games',
+            ),
+            AxisService.title_x_axis("Mage Number", size=30),
+            AxisService.x_linear_axis(),
+            AxisService.x_tick_step_size(1),
+            AxisService.axes_bold_label(axe_id="x", size=15),
+            AxisService.axes_bold_label(axe_id="y", size=15),
+        ]
 
     def get_database_data(self):
         mage_number_list = self.possible_mage_number

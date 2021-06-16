@@ -1,8 +1,7 @@
 from django.shortcuts import render
 
 from aeon.repository.nemesis_repository import NemesisRepository
-from graph.service.options.linear_axis_service import LinearAxisService
-from graph.service.options.option_service import OptionService
+from graph.service.options.axis_service import AxisService
 from graph.views.bar_chart_view import BarChartView
 
 
@@ -90,18 +89,14 @@ class NemesisWinRateView(BarChartView):
         return nemesis_names, nemesis_win_rate, game_number
 
     @staticmethod
-    def generate_options():
-        options = {}
-
-        y_axis_options = LinearAxisService.get_percentage_y_axis_options()
-        OptionService.deep_update(options, y_axis_options)
-
-        second_y_axis_options = LinearAxisService.get_title_second_axis(
-            axis_name='y_game_number',
-            axis_title='Number of Games',
-        )
-        OptionService.deep_update(options, second_y_axis_options)
-
-        x_title_axis_options = LinearAxisService.get_title_x_axis_options("Nemesis Name")
-        OptionService.deep_update(options, x_title_axis_options)
-        return options
+    def get_options():
+        return [
+            AxisService.percentage_y_axis(),
+            AxisService.title_second_axis(
+                axis_name='y_game_number',
+                axis_title='Number of Games',
+            ),
+            AxisService.title_x_axis("Nemesis Name", size=30),
+            AxisService.axes_bold_label(axe_id="x", size=15),
+            AxisService.axes_bold_label(axe_id="y", size=15),
+        ]

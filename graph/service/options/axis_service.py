@@ -1,6 +1,6 @@
-class LinearAxisService:
+class AxisService:
     @staticmethod
-    def get_percentage_y_axis_options(axis_name="y"):
+    def percentage_y_axis(axis_name="y"):
         return {
             "scales": {
                 axis_name: {
@@ -9,13 +9,17 @@ class LinearAxisService:
                     "title": {
                         "display": True,
                         "text": "Percentage",
+                        "font": {
+                            "size": 30,
+                            "weight": "bold",
+                        }
                     }
                 }
             }
         }
 
     @staticmethod
-    def get_title_second_axis(axis_name, axis_title):
+    def title_second_axis(axis_name, axis_title):
         return {
             "scales": {
                 axis_name: {
@@ -32,20 +36,24 @@ class LinearAxisService:
         }
 
     @staticmethod
-    def get_title_x_axis_options(title):
+    def title_x_axis(title, size=12):
         return {
             "scales": {
                 "x": {
                     "title": {
                         "display": True,
                         "text": title,
+                        "font": {
+                            "weight": "bold",
+                            "size": size,
+                        }
                     }
                 }
             }
         }
 
     @staticmethod
-    def get_x_linear_axis_options():
+    def x_linear_axis():
         return {
             "scales": {
                 "x": {
@@ -55,12 +63,27 @@ class LinearAxisService:
         }
 
     @staticmethod
-    def get_x_tick_step_size_options(step_size):
+    def x_tick_step_size(step_size):
         return {
             "scales": {
                 "x": {
                     "ticks": {
                         "stepSize": step_size
+                    }
+                }
+            }
+        }
+
+    @staticmethod
+    def axes_bold_label(axe_id, size=12):
+        return {
+            "scales": {
+                axe_id: {
+                    "ticks": {
+                        "font": {
+                            "weight": "bold",
+                            "size": size,
+                        }
                     }
                 }
             }

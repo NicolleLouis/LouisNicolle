@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from aeon.repository.nemesis_repository import NemesisRepository
-from graph.service.options.linear_axis_service import LinearAxisService
-from graph.service.options.option_service import OptionService
+from graph.service.options.axis_service import AxisService
 from graph.views.line_chart_view import LineChartView
 from stats.service.win_rate_service import WinRateService
 
@@ -40,22 +39,15 @@ class NemesisDifficultyWinRateView(LineChartView):
         }
 
     @staticmethod
-    def generate_options():
-        options = {}
-
-        y_axis_options = LinearAxisService.get_percentage_y_axis_options()
-        OptionService.deep_update(options, y_axis_options)
-
-        x_title_axis_options = LinearAxisService.get_title_x_axis_options("Nemesis Difficulty")
-        OptionService.deep_update(options, x_title_axis_options)
-
-        x_linear_axis_options = LinearAxisService.get_x_linear_axis_options()
-        OptionService.deep_update(options, x_linear_axis_options)
-
-        x_stepsize_options = LinearAxisService.get_x_tick_step_size_options(1)
-        OptionService.deep_update(options, x_stepsize_options)
-
-        return options
+    def get_options():
+        return [
+            AxisService.percentage_y_axis(),
+            AxisService.title_x_axis("Nemesis Difficulty", size=30),
+            AxisService.x_linear_axis(),
+            AxisService.x_tick_step_size(1),
+            AxisService.axes_bold_label(axe_id="x", size=15),
+            AxisService.axes_bold_label(axe_id="y", size=15),
+        ]
 
     @staticmethod
     def get_database_data():
