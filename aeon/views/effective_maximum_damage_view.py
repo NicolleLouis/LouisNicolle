@@ -13,6 +13,7 @@ def render_effective_maximum_damage_view(request):
         context={
             "title": "Damage Dealt to the Nemesis by available maximum damage in market",
             'data_url': "effective_maximum_damage_data",
+            'help_text': "Maximum Available Damage is the sum of maximum damage of all the cards available"
         }
     )
 
