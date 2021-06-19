@@ -37,10 +37,14 @@ class GameService:
     def compute_average_damage_dealt(games):
         game_number = games.count()
         if game_number == 0:
-            return None
-        damage_dealt = map(
-            lambda game: game.nemesis_damage_dealt if game.nemesis_damage_dealt is not None else 0,
+            return
+        games_filtered = filter(
+            lambda game: game.nemesis_hit_point is not None,
             games
+        )
+        damage_dealt = map(
+            lambda game: game.nemesis_damage_dealt,
+            games_filtered
         )
         return sum(damage_dealt) / game_number
 
