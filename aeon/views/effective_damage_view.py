@@ -82,6 +82,7 @@ class EffectiveDamageView(LineChartView):
             AxisService.title_x_axis("Damage Available", size=30),
             AxisService.title_y_axis("Damage Dealt", size=30),
             AxisService.x_linear_axis(),
+            AxisService.min_max_y_axis(y_min=0, y_max=70),
             AxisService.x_tick_step_size(1),
             AxisService.axes_bold_label(axe_id="x", size=15),
             AxisService.axes_bold_label(axe_id="y", size=15),

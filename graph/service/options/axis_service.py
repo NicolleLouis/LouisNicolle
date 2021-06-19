@@ -1,5 +1,16 @@
 class AxisService:
     @staticmethod
+    def min_max_y_axis(y_min=0, y_max=100, axis_name="y"):
+        return {
+            "scales": {
+                axis_name: {
+                    "suggestedMin": y_min,
+                    "suggestedMax": y_max,
+                }
+            }
+        }
+
+    @staticmethod
     def percentage_y_axis(axis_name="y"):
         return {
             "scales": {
