@@ -3,9 +3,14 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block css %}
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'css/default.css' %}">
+{% endblock %}
+
 {% block content %}
     <h1>{{ title }}</h1>
-    <div class="graph">
+    <div class="pie">
         <canvas id="myChart" width="500" height="230"></canvas>
     </div>
     <a href=".">

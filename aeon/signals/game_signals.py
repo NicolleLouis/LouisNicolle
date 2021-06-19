@@ -30,3 +30,8 @@ def compute_data_card(sender, instance, **kwargs):
     cards = instance.cards_in_market.all()
     for card in cards:
         CardService.compute_card_data(card)
+
+
+@receiver(m2m_changed, sender=Game.cards_in_market.through)
+def compute_game_info_on_card(sender, instance, **kwargs):
+    GameService.update_game_card_info(instance)

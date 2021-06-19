@@ -5,8 +5,9 @@ from graph.views.chart_view import ChartView
 
 
 class PieChartView(ChartView):
-    def __init__(self, colors=None):
+    def __init__(self, field_name=None, colors=None):
         super().__init__()
+        self.field_name = field_name
         self.colors = colors
         self.type = "doughnut"
 

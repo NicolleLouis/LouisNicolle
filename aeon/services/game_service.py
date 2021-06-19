@@ -20,3 +20,14 @@ class GameService:
         mages_number = game.mage.all().count()
         game.number_of_mage = mages_number
         game.save()
+
+    @staticmethod
+    def update_game_card_info(game):
+        from aeon.services.card_service import CardService
+
+        cards = game.cards_in_market.all()
+        total_damage = CardService.sum_damage(cards)
+        game.total_damage = total_damage
+        total_maximum_damage = CardService.sum_maximum_damage(cards)
+        game.total_maximum_damage = total_maximum_damage
+        game.save()

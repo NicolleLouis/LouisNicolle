@@ -20,6 +20,11 @@ class Nemesis(models.Model):
         null=True,
         blank=True
     )
+    total_hp = models.IntegerField(
+        null=True,
+        blank=True,
+        default=70,
+    )
     extension = models.ForeignKey(
         Extension,
         null=True,

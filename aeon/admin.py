@@ -3,7 +3,8 @@ from django.contrib import admin
 from aeon.models.card import Card
 from aeon.models.card_admin import CardAdmin
 from aeon.models.extension import Extension, ExtensionAdmin
-from aeon.models.game import Game, GameAdmin
+from aeon.models.game import Game
+from aeon.models.game_admin import GameAdmin
 from aeon.models.mage import Mage
 from aeon.models.mage_admin import MageAdmin
 from aeon.models.nemesis import Nemesis
