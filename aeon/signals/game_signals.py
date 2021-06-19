@@ -35,3 +35,8 @@ def compute_data_card(sender, instance, **kwargs):
 @receiver(m2m_changed, sender=Game.cards_in_market.through)
 def compute_game_info_on_card(sender, instance, **kwargs):
     GameService.update_game_card_info(instance)
+
+
+@receiver(post_save, sender=Game)
+def compute_game_info(sender, instance, **kwargs):
+    GameService.update_nemesis_hit_point(instance)

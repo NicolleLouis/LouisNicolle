@@ -79,6 +79,7 @@ class GameAdmin(admin.ModelAdmin):
         for game in queryset:
             GameService.update_mage_number(game)
             GameService.update_game_card_info(game)
+            GameService.update_nemesis_hit_point(game)
 
     @staticmethod
     def get_mages_name(game):

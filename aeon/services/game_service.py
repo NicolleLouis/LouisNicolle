@@ -1,3 +1,4 @@
+from aeon.constants.victory_type import VictoryType
 from stats.service.utils import Utils
 
 
@@ -42,3 +43,10 @@ class GameService:
             games
         )
         return sum(damage_dealt) / game_number
+
+    @staticmethod
+    def update_nemesis_hit_point(game):
+        if game.is_win:
+            if game.victory_type == VictoryType.NEMESIS_KILL and game.nemesis_hit_point is None:
+                game.nemesis_hit_point = 0
+                game.save()
