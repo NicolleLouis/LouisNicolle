@@ -1,6 +1,8 @@
 from django.urls import path
 
 from aeon.views.effective_damage_view import effective_damage_data_view, render_effective_damage_view
+from aeon.views.effective_maximum_damage_view import render_effective_maximum_damage_view, \
+    effective_maximum_damage_data_view
 from aeon.views.home import home
 from aeon.views.mage_number_win_rate_view import render_mage_number_win_rate_view, mage_number_win_rate_data_view
 from aeon.views.mage_popularity_view import render_mage_popularity_view, mage_popularity_data_view
@@ -59,5 +61,15 @@ urlpatterns = [
         'effective_damage_data',
         effective_damage_data_view,
         name='effective_damage_data',
+    ),
+    path(
+        'effective_maximum_damage',
+        render_effective_maximum_damage_view,
+        name='effective_maximum_damage_chart',
+    ),
+    path(
+        'effective_maximum_damage_data',
+        effective_maximum_damage_data_view,
+        name='effective_maximum_damage_data',
     ),
 ]

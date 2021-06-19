@@ -35,3 +35,9 @@ class GameRepository:
         queryset = GameRepository.get_queryset()
         queryset = queryset.filter(total_damage=total_damage)
         return queryset
+
+    @staticmethod
+    def get_by_total_maximum_damage(total_maximum_damage):
+        queryset = GameRepository.get_queryset()
+        queryset = queryset.filter(total_maximum_damage=total_maximum_damage)
+        return queryset
