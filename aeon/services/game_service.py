@@ -12,7 +12,7 @@ class GameService:
             game_queryset
         )
         number_of_victories = sum(game_victories)
-        victory_ratio = number_of_victories/number_of_games
+        victory_ratio = number_of_victories / number_of_games
         return Utils.ratio_to_percentage(victory_ratio)
 
     @staticmethod
@@ -31,3 +31,14 @@ class GameService:
         total_maximum_damage = CardService.sum_maximum_damage(cards)
         game.total_maximum_damage = total_maximum_damage
         game.save()
+
+    @staticmethod
+    def compute_average_damage_dealt(games):
+        game_number = games.count()
+        if game_number == 0:
+            return None
+        damage_dealt = map(
+            lambda game: game.nemesis_damage_dealt if game.nemesis_damage_dealt is not None else 0,
+            games
+        )
+        return sum(damage_dealt) / game_number

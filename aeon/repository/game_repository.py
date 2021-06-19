@@ -29,3 +29,9 @@ class GameRepository:
         queryset = GameRepository.get_queryset()
         queryset = queryset.filter(number_of_mage=mage_number)
         return queryset
+
+    @staticmethod
+    def get_by_total_damage(total_damage):
+        queryset = GameRepository.get_queryset()
+        queryset = queryset.filter(total_damage=total_damage)
+        return queryset

@@ -93,7 +93,7 @@ class Game(models.Model):
     )
 
     @property
-    def remaining_nemesis_hp(self):
+    def nemesis_damage_dealt(self):
         if self.nemesis_hit_point is None:
             return None
         if self.nemesis.total_hp is None:

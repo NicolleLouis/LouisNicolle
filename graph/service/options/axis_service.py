@@ -36,6 +36,23 @@ class AxisService:
         }
 
     @staticmethod
+    def title_y_axis(title, size=12):
+        return {
+            "scales": {
+                "y": {
+                    "title": {
+                        "display": True,
+                        "text": title,
+                        "font": {
+                            "weight": "bold",
+                            "size": size,
+                        }
+                    }
+                }
+            }
+        }
+
+    @staticmethod
     def title_x_axis(title, size=12):
         return {
             "scales": {
