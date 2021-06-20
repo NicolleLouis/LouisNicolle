@@ -11,7 +11,7 @@ def render_card_characteristic_win_rate_view(request):
         request=request,
         template_name='graph/pie_graph.html',
         context={
-            "title": "Win-Rate by Nemesis",
+            "title": "Win-Rate by Card Characteristic",
             'data_url': "card_characteristic_win_rate_data",
         }
     )
