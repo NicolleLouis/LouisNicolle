@@ -41,3 +41,9 @@ class GameRepository:
         queryset = GameRepository.get_queryset()
         queryset = queryset.filter(total_maximum_damage=total_maximum_damage)
         return queryset
+
+    @staticmethod
+    def get_by_average_ether_cost(average_ether_cost):
+        queryset = GameRepository.get_queryset()
+        queryset = queryset.filter(average_ether_cost=average_ether_cost)
+        return queryset
