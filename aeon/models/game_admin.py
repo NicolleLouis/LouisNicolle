@@ -37,7 +37,8 @@ class GameAdmin(admin.ModelAdmin):
     readonly_fields = (
         "number_of_mage",
         "total_damage",
-        "total_maximum_damage"
+        "total_maximum_damage",
+        "average_ether_cost",
     )
 
     actions = (

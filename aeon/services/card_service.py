@@ -13,6 +13,18 @@ class CardService:
         card.save()
 
     @staticmethod
+    def average_cost(cards):
+        card_count = cards.count()
+        if card_count == 0:
+            return None
+        cards_ether = map(
+            lambda card: card.ether_cost,
+            cards
+        )
+        sum_ether = sum(cards_ether)
+        return round(sum_ether / card_count, 1)
+
+    @staticmethod
     def sum_damage(cards):
         damage = 0
         for card in cards:

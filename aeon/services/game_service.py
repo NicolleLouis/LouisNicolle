@@ -31,6 +31,8 @@ class GameService:
         game.total_damage = total_damage
         total_maximum_damage = CardService.sum_maximum_damage(cards)
         game.total_maximum_damage = total_maximum_damage
+        average_ether_cost = CardService.average_cost(cards)
+        game.average_ether_cost = average_ether_cost
         game.save()
 
     @staticmethod

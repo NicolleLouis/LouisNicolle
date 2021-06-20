@@ -91,6 +91,10 @@ class Game(models.Model):
         blank=True,
         null=True,
     )
+    average_ether_cost = models.FloatField(
+        blank=True,
+        null=True,
+    )
 
     @property
     def nemesis_damage_dealt(self):
