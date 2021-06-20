@@ -4,7 +4,6 @@ from aeon.repository.game_repository import GameRepository
 from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService
 from graph.views.line_chart_view import LineChartView
-from stats.service.win_rate_service import WinRateService
 
 
 def render_average_ether_cost_view(request):
@@ -44,12 +43,18 @@ class AverageEtherCostView(LineChartView):
     @staticmethod
     def get_database_data():
         games = GameRepository.get_queryset()
-        available_average_ether_cost = list(set(
-            map(
-                lambda game: game.average_ether_cost,
-                games
+        available_average_ether_cost = list(
+            set(
+                filter(
+                    None,
+                    map(
+                        lambda game: game.average_ether_cost,
+                        games
+                    )
+                )
             )
-        ))
+        )
+        available_average_ether_cost.sort()
         average_ether_cost_win_rate = []
         for average_ether_cost in available_average_ether_cost:
             games = GameRepository.get_by_average_ether_cost(average_ether_cost)
