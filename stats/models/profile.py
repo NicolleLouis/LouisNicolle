@@ -1,9 +1,6 @@
 from django.db import models
-from django.contrib import admin
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
-
-from louis_nicolle.services.permission_service import PermissionService
 
 
 class Profile(models.Model):
@@ -31,8 +28,17 @@ class Profile(models.Model):
         null=True,
         blank=True,
     )
+    victory_number = models.IntegerField(
+        null=True,
+        blank=True,
+    )
+    game_number = models.IntegerField(
+        null=True,
+        blank=True,
+    )
 
-    def __str__(self):
+    @property
+    def name(self):
         if self.first_name is not None or self.last_name is not None:
             first_name = str(self.first_name) if self.first_name is not None else ""
             last_name = str(self.last_name) if self.last_name is not None else ""
@@ -40,24 +46,5 @@ class Profile(models.Model):
         username = self.user.username
         return username
 
-
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = (
-        "get_name",
-    )
-
-    search_fields = (
-        "first_name",
-        'last_name',
-        'user__username',
-    )
-
-    @staticmethod
-    def get_name(instance):
-        return str(instance)
-
-    def get_queryset(self, request):
-        queryset = super(ProfileAdmin, self).get_queryset(request)
-        if PermissionService.is_super_user(request.user):
-            return queryset
-        return queryset.filter(user=request.user)
+    def __str__(self):
+        return self.name

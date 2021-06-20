@@ -47,3 +47,13 @@ class GameRepository:
         queryset = GameRepository.get_queryset()
         queryset = queryset.filter(average_ether_cost=average_ether_cost)
         return queryset
+
+    @staticmethod
+    def get_by_profile(profile):
+        queryset = GameRepository.get_queryset()
+        queryset = queryset.filter(players=profile)
+        return queryset
+
+    @staticmethod
+    def filter_by_victory(queryset, is_victory=True):
+        return queryset.filter(is_win=is_victory)

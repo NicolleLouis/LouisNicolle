@@ -5,7 +5,7 @@ from aeon.services.mage_service import MageService
 
 class MageAdmin(admin.ModelAdmin):
     list_display = (
-        "get_name",
+        "name",
         "game_number",
         "win_rate",
     )
@@ -35,11 +35,6 @@ class MageAdmin(admin.ModelAdmin):
     actions = (
         "compute_data",
     )
-
-    @staticmethod
-    @admin.display(description='name')
-    def get_name(instance):
-        return str(instance)
 
     @admin.action(description='Compute Mage data', permissions=['change'])
     def compute_data(self, request, queryset):

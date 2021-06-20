@@ -40,7 +40,7 @@ class CardAdmin(admin.ModelAdmin):
     ]
 
     list_display = (
-        "get_name",
+        "name",
         'ether_cost',
         "game_number",
         "win_rate",
@@ -73,11 +73,6 @@ class CardAdmin(admin.ModelAdmin):
     actions = (
         "compute_data",
     )
-
-    @staticmethod
-    @admin.display(description='name')
-    def get_name(instance):
-        return str(instance)
 
     def get_fieldsets(self, request, obj=None):
         all_fields = ModelService.get_model_field_names(Card)

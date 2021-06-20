@@ -5,7 +5,7 @@ from aeon.services.nemesis_service import NemesisService
 
 class NemesisAdmin(admin.ModelAdmin):
     list_display = (
-        "get_name",
+        "name",
         "difficulty",
         "game_number",
         "win_rate",
@@ -36,11 +36,6 @@ class NemesisAdmin(admin.ModelAdmin):
     actions = (
         "compute_data",
     )
-
-    @staticmethod
-    @admin.display(description='name')
-    def get_name(instance):
-        return str(instance)
 
     @admin.action(description='Compute Nemesis data', permissions=['change'])
     def compute_data(self, request, queryset):

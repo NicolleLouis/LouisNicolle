@@ -6,6 +6,7 @@ from aeon.services.card_service import CardService
 from aeon.services.game_service import GameService
 from aeon.services.mage_service import MageService
 from aeon.services.nemesis_service import NemesisService
+from stats.service.profile_service import ProfileService
 
 
 @receiver(post_save, sender=Game)
@@ -40,3 +41,9 @@ def compute_game_info_on_card(sender, instance, **kwargs):
 @receiver(post_save, sender=Game)
 def compute_game_info(sender, instance, **kwargs):
     GameService.update_nemesis_hit_point(instance)
+
+
+@receiver(m2m_changed, sender=Game.players.through)
+def compute_profile_data(sender, instance, **kwargs):
+    for profile in instance.players.all():
+        ProfileService.update_profile_data(profile)
