@@ -1,6 +1,8 @@
 from django.urls import path
 
 from aeon.views.average_ether_cost_view import render_average_ether_cost_view, average_ether_cost_data_view
+from aeon.views.card_characteristic_win_rate import card_characteristic_win_rate_data_view, \
+    render_card_characteristic_win_rate_view
 from aeon.views.effective_damage_view import effective_damage_data_view, render_effective_damage_view
 from aeon.views.effective_maximum_damage_view import render_effective_maximum_damage_view, \
     effective_maximum_damage_data_view
@@ -82,5 +84,15 @@ urlpatterns = [
         'average_ether_cost_data',
         average_ether_cost_data_view,
         name='average_ether_cost_data',
+    ),
+    path(
+        'card_characteristic_win_rate',
+        render_card_characteristic_win_rate_view,
+        name='card_characteristic_win_rate_chart',
+    ),
+    path(
+        'card_characteristic_win_rate_data',
+        card_characteristic_win_rate_data_view,
+        name='card_characteristic_win_rate_data',
     ),
 ]

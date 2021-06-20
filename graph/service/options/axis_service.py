@@ -116,3 +116,18 @@ class AxisService:
                 }
             }
         }
+
+    @staticmethod
+    def radial_axis_bold_label(axe_id="r", size=12):
+        return {
+            "scales": {
+                axe_id: {
+                    "pointLabels": {
+                        "font": {
+                            "weight": "bold",
+                            "size": size,
+                        }
+                    }
+                }
+            }
+        }
