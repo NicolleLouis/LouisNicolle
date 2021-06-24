@@ -138,5 +138,5 @@ dmypy.json
 
 # secrets
 .secrets
-.env_production
 .env
+.ssl

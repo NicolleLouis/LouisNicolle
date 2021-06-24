@@ -4,6 +4,9 @@ from aeon.repository.game_repository import GameRepository
 from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService
 from graph.views.line_chart_view import LineChartView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 
 def render_average_ether_cost_view(request):
@@ -17,12 +20,13 @@ def render_average_ether_cost_view(request):
     )
 
 
-def average_ether_cost_data_view(request):
-    view = AverageEtherCostView()
-    return view.view(request)
+class AverageEtherCostData(APIView):
+    def get(self, request, *args, **kwargs):
+        graph = AverageEtherCost()
+        return Response(graph.generate_data(), status=status.HTTP_200_OK)
 
 
-class AverageEtherCostView(LineChartView):
+class AverageEtherCost(LineChartView):
     def __init__(self):
         super().__init__()
         average_ether_cost, win_rate = self.split_database_data(
