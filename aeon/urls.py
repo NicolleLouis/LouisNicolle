@@ -1,34 +1,21 @@
 from django.urls import path
 
-from aeon.views.average_ether_cost_view import render_average_ether_cost_view, AverageEtherCostData
-from aeon.views.card_characteristic_win_rate import card_characteristic_win_rate_data_view, \
-    render_card_characteristic_win_rate_view
-from aeon.views.effective_damage_view import effective_damage_data_view, render_effective_damage_view
-from aeon.views.effective_maximum_damage_view import render_effective_maximum_damage_view, \
-    effective_maximum_damage_data_view
+from aeon.views.average_ether_cost_view import AverageEtherCostData
+from aeon.views.card_characteristic_win_rate import CardCharacteristicWinRateData
+from aeon.views.effective_damage_view import effective_damage_data_view
+from aeon.views.effective_maximum_damage_view import effective_maximum_damage_data_view
 from aeon.views.home import home
-from aeon.views.mage_number_win_rate_view import render_mage_number_win_rate_view, mage_number_win_rate_data_view
-from aeon.views.mage_popularity_view import render_mage_popularity_view, mage_popularity_data_view
-from aeon.views.nemesis_win_rate_view import nemesis_win_rate_data_view, render_nemesis_win_rate_view
-from aeon.views.nemesis_difficulty_win_rate_view import render_nemesis_difficulty_win_rate_view, \
-    nemesis_difficulty_win_rate_data_view
+from aeon.views.mage_number_win_rate_view import mage_number_win_rate_data_view
+from aeon.views.mage_popularity_view import mage_popularity_data_view
+from aeon.views.nemesis_win_rate_view import nemesis_win_rate_data_view
+from aeon.views.nemesis_difficulty_win_rate_view import nemesis_difficulty_win_rate_data_view
 
 urlpatterns = [
     path('', home),
     path(
-        'nemesis_win_rate',
-        render_nemesis_win_rate_view,
-        name='nemesis_win_rate_chart'
-    ),
-    path(
         'nemesis_win_rate_data',
         nemesis_win_rate_data_view,
         name='nemesis_win_rate_data',
-    ),
-    path(
-        'nemesis_difficulty_win_rate',
-        render_nemesis_difficulty_win_rate_view,
-        name='nemesis_difficulty_win_rate_chart',
     ),
     path(
         'nemesis_difficulty_win_rate_data',
@@ -36,19 +23,9 @@ urlpatterns = [
         name='nemesis_difficulty_win_rate_data',
     ),
     path(
-        'mage_number_win_rate',
-        render_mage_number_win_rate_view,
-        name='mage_number_win_rate_chart',
-    ),
-    path(
         'mage_number_win_rate_data',
         mage_number_win_rate_data_view,
         name='mage_number_win_rate_data',
-    ),
-    path(
-        'mage_popularity',
-        render_mage_popularity_view,
-        name='mage_popularity_chart',
     ),
     path(
         'mage_popularity_data',
@@ -56,19 +33,9 @@ urlpatterns = [
         name='mage_popularity_data',
     ),
     path(
-        'effective_damage',
-        render_effective_damage_view,
-        name='effective_damage_chart',
-    ),
-    path(
         'effective_damage_data',
         effective_damage_data_view,
         name='effective_damage_data',
-    ),
-    path(
-        'effective_maximum_damage',
-        render_effective_maximum_damage_view,
-        name='effective_maximum_damage_chart',
     ),
     path(
         'effective_maximum_damage_data',
@@ -76,23 +43,13 @@ urlpatterns = [
         name='effective_maximum_damage_data',
     ),
     path(
-        'average_ether_cost',
-        render_average_ether_cost_view,
-        name='average_ether_cost_chart',
-    ),
-    path(
         'average_ether_cost_data',
         AverageEtherCostData.as_view(),
         name='average_ether_cost_data',
     ),
     path(
-        'card_characteristic_win_rate',
-        render_card_characteristic_win_rate_view,
-        name='card_characteristic_win_rate_chart',
-    ),
-    path(
         'card_characteristic_win_rate_data',
-        card_characteristic_win_rate_data_view,
+        CardCharacteristicWinRateData.as_view(),
         name='card_characteristic_win_rate_data',
     ),
 ]

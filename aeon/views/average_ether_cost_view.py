@@ -1,29 +1,18 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from aeon.repository.game_repository import GameRepository
 from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService
 from graph.views.line_chart_view import LineChartView
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-
-
-def render_average_ether_cost_view(request):
-    return render(
-        request=request,
-        template_name='graph/single_graph.html',
-        context={
-            "title": "Win Rate by average ether cost",
-            'data_url': "average_ether_cost_data",
-        }
-    )
 
 
 class AverageEtherCostData(APIView):
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def get(request, *args, **kwargs):
         graph = AverageEtherCost()
-        return Response(graph.generate_data(), status=status.HTTP_200_OK)
+        return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
 class AverageEtherCost(LineChartView):
