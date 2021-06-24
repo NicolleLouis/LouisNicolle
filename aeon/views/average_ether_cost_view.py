@@ -24,6 +24,7 @@ class AverageEtherCost(LineChartView):
         self.average_ether_cost = average_ether_cost
         self.win_rate = win_rate
         self.win_rate_datasource = "Win-Rate"
+        self.title = "Win-Rate by average card ether cost"
 
     def get_x_labels(self):
         return self.average_ether_cost

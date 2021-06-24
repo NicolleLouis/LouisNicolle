@@ -9,6 +9,7 @@ class ChartView:
 
     def __init__(self):
         self.type = None
+        self.title = None
 
     def view(self, request):
         return JsonResponse(self.generate_chart())
@@ -34,15 +35,12 @@ class ChartView:
         return options
 
     def generate_chart(self):
+        chart = {
+            "data": self.generate_data(),
+            "options": self.generate_options(),
+        }
         if self.type is not None:
-            chart = {
-                "type": self.type,
-                "data": self.generate_data(),
-                "options": self.generate_options(),
-            }
-        else:
-            chart = {
-                "data": self.generate_data(),
-                "options": self.generate_options(),
-            }
+            chart["type"] = self.type
+        if self.title is not None:
+            chart["title"] = self.title
         return chart
