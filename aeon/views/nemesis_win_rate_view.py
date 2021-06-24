@@ -1,27 +1,20 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from aeon.repository.nemesis_repository import NemesisRepository
 from graph.service.options.axis_service import AxisService
 from graph.views.bar_chart_view import BarChartView
 
 
-def render_nemesis_win_rate_view(request):
-    return render(
-        request=request,
-        template_name='graph/single_graph.html',
-        context={
-            "title": "Win-Rate by Nemesis",
-            'data_url': "nemesis_win_rate_data",
-        }
-    )
+class NemesisWinRateData(APIView):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        graph = NemesisWinRateGraph()
+        return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
-def nemesis_win_rate_data_view(request):
-    view = NemesisWinRateView()
-    return view.view(request)
-
-
-class NemesisWinRateView(BarChartView):
+class NemesisWinRateGraph(BarChartView):
     def __init__(self):
         super().__init__()
         nemesis_names, nemesis_win_rate, game_number = self.split_database_data(

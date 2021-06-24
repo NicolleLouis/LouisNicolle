@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from aeon.repository.game_repository import GameRepository
 from aeon.services.game_service import GameService
@@ -6,24 +8,14 @@ from graph.service.options.axis_service import AxisService
 from graph.views.line_chart_view import LineChartView
 
 
-def render_effective_maximum_damage_view(request):
-    return render(
-        request=request,
-        template_name='graph/single_graph.html',
-        context={
-            "title": "Damage Dealt to the Nemesis by available maximum damage in market",
-            'data_url': "effective_maximum_damage_data",
-            'help_text': "Maximum Available Damage is the sum of maximum damage of all the cards available"
-        }
-    )
+class EffectiveDamageGraphData(APIView):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        graph = EffectiveDamageGraph()
+        return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
-def effective_maximum_damage_data_view(request):
-    view = EffectiveDamageView()
-    return view.view(request)
-
-
-class EffectiveDamageView(LineChartView):
+class EffectiveDamageGraph(LineChartView):
     def __init__(self):
         super().__init__()
         maximum_damage_available, damage_dealt = self.split_database_data(

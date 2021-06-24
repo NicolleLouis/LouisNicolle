@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from aeon.repository.mage_repository import MageRepository
 
@@ -6,23 +8,14 @@ from graph.views.pie_chart_view import PieChartView
 from stats.service.utils import Utils
 
 
-def render_mage_popularity_view(request):
-    return render(
-        request=request,
-        template_name='graph/pie_graph.html',
-        context={
-            "title": "Mages popularity",
-            'data_url': "mage_popularity_data",
-        }
-    )
+class MagePopularityData(APIView):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        graph = MagePopularityGraph()
+        return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
-def mage_popularity_data_view(request):
-    view = MagePopularityView()
-    return view.view(request)
-
-
-class MagePopularityView(PieChartView):
+class MagePopularityGraph(PieChartView):
     def __init__(self):
         super().__init__()
         mage, popularity = self.split_database_data(

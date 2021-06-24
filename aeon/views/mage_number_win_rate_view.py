@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from aeon.repository.game_repository import GameRepository
 from aeon.services.game_service import GameService
@@ -6,23 +8,14 @@ from graph.service.options.axis_service import AxisService
 from graph.views.bar_chart_view import BarChartView
 
 
-def render_mage_number_win_rate_view(request):
-    return render(
-        request=request,
-        template_name='graph/single_graph.html',
-        context={
-            "title": "Win-Rate by mages number",
-            'data_url': "mage_number_win_rate_data",
-        }
-    )
+class MageNumberWinRateData(APIView):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        graph = MageNumberWinRateGraph()
+        return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
-def mage_number_win_rate_data_view(request):
-    view = MageNumberWinRateView()
-    return view.view(request)
-
-
-class MageNumberWinRateView(BarChartView):
+class MageNumberWinRateGraph(BarChartView):
     def __init__(self):
         super().__init__()
         self.possible_mage_number = [1, 2, 3, 4]
