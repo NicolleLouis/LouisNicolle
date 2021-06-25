@@ -19,13 +19,8 @@
 <body>
 <main>
     {% if user.is_authenticated %}
-        <button class="sidebar-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        {% include 'side_bar.html' %}
         {% block content %}
         {% endblock %}
-        <script type="text/javascript" src="{% static 'js/side_bar.js' %}"></script>
     {% else %}
         <h3>Login with Admin</h3>
         <li><a href="/admin">Admin</a></li>
