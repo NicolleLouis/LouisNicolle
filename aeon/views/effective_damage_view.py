@@ -45,6 +45,7 @@ class EffectiveDamageGraph(LineChartView):
                 games
             )
         ))
+        available_damage_possibility.sort()
         games_available_damage = []
         for available_damage in available_damage_possibility:
             games = GameRepository.get_by_total_damage(available_damage)
