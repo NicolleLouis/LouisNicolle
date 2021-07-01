@@ -23,9 +23,11 @@ class GameRepository:
         from aeon.repository.mage_repository import MageRepository
 
         queryset = GameRepository.get_queryset()
+        if mages_name_list is None:
+            return queryset
         mages = MageRepository.transform_name_list_to_id(mages_name_list)
-        if mages_name_list is not None:
-            queryset = queryset.filter(mage__in=mages)
+        for mage in mages:
+            queryset = queryset.filter(mage=mage)
         return queryset
 
     @staticmethod
