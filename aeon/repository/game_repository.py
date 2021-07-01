@@ -82,5 +82,8 @@ class GameRepository:
 
     @staticmethod
     def filter_by_nemesis(queryset, nemesis):
-        queryset = queryset.filter(nemesis=nemesis)
+        if isinstance(nemesis, list):
+            queryset = queryset.filter(nemesis__in=nemesis)
+        else:
+            queryset = queryset.filter(nemesis=nemesis)
         return queryset

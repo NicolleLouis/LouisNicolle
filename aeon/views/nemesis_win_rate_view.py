@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from aeon.repository.game_repository import GameRepository
-from aeon.repository.nemesis_repository import NemesisRepository
 from aeon.services.api_service import ApiService
 from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService

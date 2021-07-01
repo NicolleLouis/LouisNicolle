@@ -2,7 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from aeon.repository.game_repository import GameRepository
 from aeon.repository.nemesis_repository import NemesisRepository
+from aeon.services.api_service import ApiService
+from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService
 from graph.views.chart_view import ChartView
 from graph.views.mixed_chart_view import MixedChartView
@@ -12,15 +15,17 @@ from stats.service.win_rate_service import WinRateService
 class NemesisDifficultyWinRateData(APIView):
     @staticmethod
     def get(request, *args, **kwargs):
-        graph = NemesisDifficultyWinRateGraph()
+        url_parameters = ["mage"]
+        filters = ApiService.extract_parameters_from_url(request, url_parameters)
+        graph = NemesisDifficultyWinRateGraph(filters_mage=filters["mage"])
         return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
 class NemesisDifficultyWinRateGraph(MixedChartView):
-    def __init__(self):
+    def __init__(self, filters_mage=None):
         super().__init__()
         nemesis_difficulty, win_rate, game_number = self.split_database_data(
-            self.get_database_data()
+            self.get_database_data(filters_mage)
         )
         self.nemesis_difficulty = nemesis_difficulty
         self.win_rate = win_rate
@@ -65,13 +70,16 @@ class NemesisDifficultyWinRateGraph(MixedChartView):
             return ChartView.bar_type
 
     @staticmethod
-    def get_database_data():
-        difficulty_list = NemesisRepository.get_unique_difficulties()
+    def get_database_data(filters_mage):
+        game_queryset = GameRepository.get_by_mage_list(filters_mage)
+        difficulty_list = NemesisRepository.get_unique_difficulties(game_queryset)
         nemesis_difficulty_win_rates = []
         for difficulty in difficulty_list:
             nemesis_list = NemesisRepository.get_by_difficulty(difficulty)
-            win_rate_service = WinRateService(nemesis_list)
-            win_rate, game_number = win_rate_service.get_data()
+            nemesis_list = NemesisRepository.transform_name_list_to_id(nemesis_list)
+            games = GameRepository.filter_by_nemesis(game_queryset, nemesis_list)
+            win_rate = GameService.get_win_rate(games)
+            game_number = games.count()
             if win_rate is not None:
                 nemesis_difficulty_win_rates.append({
                     "nemesis_difficulty": str(difficulty),
