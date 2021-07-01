@@ -11,6 +11,6 @@ class MageView(APIView):
     repository = MageRepository
 
     def get(self, request, *args, **kwargs):
-        queryset = self.repository.get_queryset()
+        queryset = self.repository.get_mage_played()
         serializer = self.serializer(list(queryset), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

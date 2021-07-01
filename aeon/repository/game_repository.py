@@ -20,6 +20,7 @@ class GameRepository:
 
     @staticmethod
     def get_by_mage_list(mages_name_list):
+        """mages_name_list is a list of 'name'"""
         from aeon.repository.mage_repository import MageRepository
 
         queryset = GameRepository.get_queryset()

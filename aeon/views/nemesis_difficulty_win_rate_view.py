@@ -9,7 +9,6 @@ from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService
 from graph.views.chart_view import ChartView
 from graph.views.mixed_chart_view import MixedChartView
-from stats.service.win_rate_service import WinRateService
 
 
 class NemesisDifficultyWinRateData(APIView):

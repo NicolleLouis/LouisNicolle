@@ -21,3 +21,9 @@ class MageRepository:
             )
         )
         return mage_id_list
+
+    @staticmethod
+    def get_mage_played():
+        queryset = MageRepository.get_queryset()
+        queryset = queryset.filter(game_number__gt=1)
+        return queryset

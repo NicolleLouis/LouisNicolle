@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from aeon.repository.game_repository import GameRepository
+from aeon.services.api_service import ApiService
 from aeon.services.game_service import GameService
 from graph.service.options.axis_service import AxisService
 from graph.views.line_chart_view import LineChartView
@@ -11,15 +12,17 @@ from graph.views.line_chart_view import LineChartView
 class AverageEtherCostData(APIView):
     @staticmethod
     def get(request, *args, **kwargs):
-        graph = AverageEtherCost()
+        url_parameters = ["mage"]
+        filters = ApiService.extract_parameters_from_url(request, url_parameters)
+        graph = AverageEtherCost(filters_mage=filters["mage"])
         return Response(graph.generate_chart(), status=status.HTTP_200_OK)
 
 
 class AverageEtherCost(LineChartView):
-    def __init__(self):
+    def __init__(self, filters_mage=None):
         super().__init__()
         average_ether_cost, win_rate = self.split_database_data(
-            self.get_database_data()
+            self.get_database_data(filters_mage)
         )
         self.average_ether_cost = average_ether_cost
         self.win_rate = win_rate
@@ -35,8 +38,8 @@ class AverageEtherCost(LineChartView):
         }
 
     @staticmethod
-    def get_database_data():
-        games = GameRepository.get_queryset()
+    def get_database_data(filters_mage):
+        games = GameRepository.get_by_mage_list(filters_mage)
         available_average_ether_cost = list(
             set(
                 filter(
