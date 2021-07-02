@@ -28,3 +28,6 @@ class ClimaxIngestionAdmin(admin.ModelAdmin):
         'climax_amount',
     )
 
+    list_filter = (
+        "profile",
+    )

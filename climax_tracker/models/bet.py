@@ -19,6 +19,10 @@ class Bet(models.Model):
     climax_amount = models.IntegerField(
         default=1,
     )
+    motive = models.TextField(
+        null=True,
+        blank=True,
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
@@ -34,3 +38,15 @@ class BetAdmin(admin.ModelAdmin):
         'climax_amount',
     )
 
+    list_filter = (
+        "winner",
+        "loser",
+    )
+
+    ordering = (
+        "-created_at",
+    )
+
+    search_fields = (
+        "motive",
+    )
