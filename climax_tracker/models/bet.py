@@ -1,18 +1,16 @@
 from django.db import models
 from django.contrib import admin
 
-from climax_tracker.models.climax_profile import ClimaxProfile
-
 
 class Bet(models.Model):
     id = models.AutoField(primary_key=True)
     winner = models.ForeignKey(
-        ClimaxProfile,
+        'ClimaxProfile',
         on_delete=models.CASCADE,
         related_name="bet_winner",
     )
     loser = models.ForeignKey(
-        ClimaxProfile,
+        'ClimaxProfile',
         on_delete=models.CASCADE,
         related_name="bet_loser",
     )

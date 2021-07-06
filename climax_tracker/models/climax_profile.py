@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 
+from climax_tracker.repository.bet_repository import BetRepository
 from stats.models.profile import Profile
 
 
@@ -40,6 +41,16 @@ class ClimaxProfile(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_unpaid_bet(self):
+        lost_bet = BetRepository.get_bet_lost_by_profile(self)
+        unpaid_bets = []
+        unpaid_bets_climax_amount = 0
+        for bet in lost_bet:
+            if unpaid_bets_climax_amount + self.climax_account < 0:
+                unpaid_bets.append(bet)
+                unpaid_bets_climax_amount += bet.climax_amount
+        return unpaid_bets
 
 
 class ClimaxProfileAdmin(admin.ModelAdmin):

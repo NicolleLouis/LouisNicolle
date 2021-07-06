@@ -4,7 +4,7 @@ from climax_tracker.models.bet import Bet
 class BetRepository:
     @staticmethod
     def get_queryset():
-        return Bet.objects.all()
+        return Bet.objects.all().order_by('-created_at')
 
     @staticmethod
     def get_bet_win_by_profile(profile):
