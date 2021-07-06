@@ -45,8 +45,8 @@ class ClimaxProfile(models.Model):
 class ClimaxProfileAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        "climax_eaten",
         'climax_account',
+        "climax_eaten",
         "total_climax_bet_lost",
         "total_climax_bet_win",
     )
