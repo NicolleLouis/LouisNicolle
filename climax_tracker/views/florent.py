@@ -8,7 +8,7 @@ from stats.service.time_service import TimeService
 
 class FlorentView(APIView):
     florent_id = 3
-    florent_life_expectancy_year = 60
+    florent_life_expectancy_year = 53
     florent_weight = 70
     climax_weight = 0.032
     repository = ProfileRepository

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'stats',
     'graph',
     'climax_tracker',
+    'achievement',
 ]
 
 MIDDLEWARE = [
