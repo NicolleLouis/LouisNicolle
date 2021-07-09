@@ -7,12 +7,10 @@ from stats.models.profile import Profile
 
 class ClimaxProfile(models.Model):
     id = models.AutoField(primary_key=True)
-    profile = models.ForeignKey(
+    profile = models.OneToOneField(
         Profile,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="profile"
+        on_delete=models.CASCADE,
+        related_name="climax_profile"
     )
     climax_eaten = models.IntegerField(
         null=True,
