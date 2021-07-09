@@ -26,11 +26,28 @@ class AbstractAchievement:
     - name: human readable name
     - achievement_levels: list of AbstractAchievementLevel
     """
-    def __init__(self, key, app, name, achievement_levels):
+
+    def __init__(self, key, app, name, achievement_levels=None):
         self.key = key
         self.app = app
         self.name = name
         self.achievement_levels = achievement_levels
+
+    @property
+    def achievement(self):
+        return AchievementRepository.get_by_key(self.key)
+
+    @property
+    def maximum_level(self):
+        if self.achievement_levels is None:
+            return 1
+        highest_level = max(
+            map(
+                lambda achievement_level: achievement_level.level,
+                self.achievement_levels
+            )
+        )
+        return highest_level
 
     def compute(self, user_profile):
         """
@@ -39,16 +56,27 @@ class AbstractAchievement:
         """
         raise NotImplementedError("Should implement computation for user_profile")
 
-    def check_achievement(self, user_profile):
-        level = self.compute(user_profile)
-        if level == 0:
-            return
+    def give_achievement(self, user_profile, level):
         achievement = AchievementRepository.get_by_key(self.key)
         achievement_level = AchievementLevelRepository.get_by_achievement_and_level(achievement, level)
         achievement_user, created = AchievementGrantedRepository.get_or_create(
             user_profile=user_profile,
             achievement=achievement,
             achievement_level=achievement_level,
+        )
+        return achievement_user
+
+    def check_achievement(self, user_profile):
+        if self.has_user_reached_maximum_level(user_profile):
+            return
+
+        level = self.compute(user_profile)
+        if level == 0:
+            return
+
+        achievement_user = self.give_achievement(
+            user_profile=user_profile,
+            level=level
         )
         return achievement_user
 
@@ -61,5 +89,11 @@ class AbstractAchievement:
         achievement.save()
 
         for achievement_level in self.achievement_levels:
-            print(achievement_level)
             achievement_level.generate(achievement=achievement)
+
+    def has_user_reached_maximum_level(self, user_profile):
+        return AchievementGrantedRepository.does_achievement_granted_exist(
+            user_profile=user_profile,
+            achievement=self.achievement,
+            achievement_level=self.maximum_level,
+        )
