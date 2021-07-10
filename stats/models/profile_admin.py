@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from achievement.service.achievement_service import AchievementService
 from louis_nicolle.services.permission_service import PermissionService
 from stats.service.profile_service import ProfileService
 
@@ -26,6 +27,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     actions = (
         "compute_data",
+        "check_all_achievements",
     )
 
     def get_queryset(self, request):
@@ -38,3 +40,10 @@ class ProfileAdmin(admin.ModelAdmin):
     def compute_data(self, request, queryset):
         for profile in queryset:
             ProfileService.update_profile_data(profile)
+
+    @admin.action(description='Check all achievement', permissions=['change'])
+    def check_all_achievements(self, request, queryset):
+        achievements = AchievementService.get_all_achievements()
+        for profile in queryset:
+            for achievement in achievements:
+                achievement.check_achievement(profile)
