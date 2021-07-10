@@ -25,3 +25,9 @@ class AchievementGrantedRepository:
                 return achievement_level == achievement_granted.achievement_level.level
         except AchievementGranted.DoesNotExist:
             return False
+
+    @staticmethod
+    def get_by_user_profile(user_profile):
+        return AchievementGranted.objects.filter(
+            user=user_profile
+        )

@@ -25,7 +25,9 @@ class AchievementGranted(models.Model):
     )
 
     def __str__(self):
-        return '{} - {}'.format(str(self.user), str(self.achievement))
+        if self.achievement_level is not None:
+            return str(self.achievement_level)
+        return str(self.achievement)
 
 
 class AchievementGrantedAdmin(admin.ModelAdmin):

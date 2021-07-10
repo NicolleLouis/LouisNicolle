@@ -9,6 +9,7 @@ class ProfileAdmin(admin.ModelAdmin):
         "name",
         "victory_number",
         "game_number",
+        "achievements",
     )
 
     readonly_fields = (

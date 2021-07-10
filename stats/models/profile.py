@@ -46,5 +46,12 @@ class Profile(models.Model):
         username = self.user.username
         return username
 
+    @property
+    def achievements(self):
+        from achievement.repository.achievement_granted import AchievementGrantedRepository
+
+        achievement_queryset = AchievementGrantedRepository.get_by_user_profile(self)
+        return list(achievement_queryset)
+
     def __str__(self):
         return self.name
