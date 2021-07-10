@@ -56,6 +56,15 @@ class AbstractAchievement:
         """
         raise NotImplementedError("Should implement computation for user_profile")
 
+    def compute_wrapper(self, user_profile):
+        computation_result = self.compute(user_profile=user_profile)
+        if isinstance(computation_result, int):
+            return computation_result
+        if isinstance(computation_result, bool):
+            if computation_result:
+                return 1
+            return 0
+
     def give_achievement(self, user_profile, level):
         achievement = AchievementRepository.get_by_key(self.key)
         achievement_level = AchievementLevelRepository.get_by_achievement_and_level(achievement, level)
@@ -70,7 +79,7 @@ class AbstractAchievement:
         if self.has_user_reached_maximum_level(user_profile):
             return
 
-        level = self.compute(user_profile)
+        level = self.compute_wrapper(user_profile)
         if level == 0:
             return
 
@@ -88,8 +97,9 @@ class AbstractAchievement:
         achievement.app = self.app
         achievement.save()
 
-        for achievement_level in self.achievement_levels:
-            achievement_level.generate(achievement=achievement)
+        if self.achievement_levels is not None:
+            for achievement_level in self.achievement_levels:
+                achievement_level.generate(achievement=achievement)
 
     def has_user_reached_maximum_level(self, user_profile):
         return AchievementGrantedRepository.does_achievement_granted_exist(
