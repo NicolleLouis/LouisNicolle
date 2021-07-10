@@ -1,6 +1,7 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save, m2m_changed
 
+from aeon.achievements.mage_death_and_victory import MageDeathAndVictory
 from aeon.models.game import Game
 from aeon.services.card_service import CardService
 from aeon.services.game_service import GameService
@@ -47,3 +48,4 @@ def compute_game_info(sender, instance, **kwargs):
 def compute_profile_data(sender, instance, **kwargs):
     for profile in instance.players.all():
         ProfileService.update_profile_data(profile)
+        MageDeathAndVictory().check_achievement(profile)

@@ -90,3 +90,7 @@ class GameRepository:
         else:
             queryset = queryset.filter(nemesis=nemesis)
         return queryset
+
+    @staticmethod
+    def filter_by_at_least_one_mage_died(queryset):
+        return queryset.filter(number_of_exhausted_mage__gte=1)
