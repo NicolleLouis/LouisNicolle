@@ -21,6 +21,10 @@ class Achievement(models.Model):
         choices=AppList.choices,
         default=AppList.AEON,
     )
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.name

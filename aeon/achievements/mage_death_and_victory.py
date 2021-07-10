@@ -1,19 +1,23 @@
 from achievement.AbstractAchievement import AbstractAchievement, AbstractAchievementLevel
+from achievement.constant.app_list import AppList
 from aeon.repository.game_repository import GameRepository
 
 
 class MageDeathAndVictory(AbstractAchievement):
     key = 'mage_died_and_victory'
-    app = 'aeon'
+    app = AppList.AEON
     name = 'Un sacrifice nécessaire'
+    description = 'Gagner une partie en ayant au moins un mage à terre'
     achievement_levels = [
         AbstractAchievementLevel(
             level=1,
-            name="A sacrifice I'm willing to make"
+            name="A sacrifice I'm willing to make",
+            description='1 partie'
         ),
         AbstractAchievementLevel(
             level=2,
-            name="The greater good"
+            name="The greater good",
+            description='10 parties'
         ),
     ]
 
@@ -22,6 +26,7 @@ class MageDeathAndVictory(AbstractAchievement):
             key=self.key,
             app=self.app,
             name=self.name,
+            description=self.description,
             achievement_levels=self.achievement_levels,
         )
 

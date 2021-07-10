@@ -1,18 +1,22 @@
 from achievement.AbstractAchievement import AbstractAchievement, AbstractAchievementLevel
+from achievement.constant.app_list import AppList
 
 
 class ClimaxEatenAchievement(AbstractAchievement):
     key = 'climax_eaten'
-    app = 'climax_tracker'
+    app = AppList.CLIMAX_TRACKER
     name = 'Mangeur de climax'
+    description = 'Manger un certain nombre de climax'
     achievement_levels = [
         AbstractAchievementLevel(
             level=1,
-            name="Début de la faim"
+            name="Début de la faim",
+            description='1 climax',
         ),
         AbstractAchievementLevel(
             level=2,
-            name="Terreur des chinois"
+            name="Terreur des chinois",
+            description='100 climax',
         ),
     ]
 
@@ -21,6 +25,7 @@ class ClimaxEatenAchievement(AbstractAchievement):
             key=self.key,
             app=self.app,
             name=self.name,
+            description=self.description,
             achievement_levels=self.achievement_levels,
         )
 

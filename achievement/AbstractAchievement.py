@@ -5,15 +5,17 @@ from achievement.repository.achievement_level import AchievementLevelRepository
 
 
 class AbstractAchievementLevel:
-    def __init__(self, level, name=None):
+    def __init__(self, level, description, name=None):
         self.level = level
+        self.description = description
         self.name = name
 
     def generate(self, achievement):
         achievement_level = AchievementLevel(
             name=self.name,
             level=self.level,
-            achievement=achievement
+            description=self.description,
+            achievement=achievement,
         )
         achievement_level.save()
 
@@ -27,10 +29,11 @@ class AbstractAchievement:
     - achievement_levels: list of AbstractAchievementLevel
     """
 
-    def __init__(self, key, app, name, achievement_levels=None):
+    def __init__(self, key, app, name, description, achievement_levels=None):
         self.key = key
         self.app = app
         self.name = name
+        self.description = description
         self.achievement_levels = achievement_levels
 
     @property
@@ -95,6 +98,7 @@ class AbstractAchievement:
             return
         achievement.name = self.name
         achievement.app = self.app
+        achievement.description = self.description
         achievement.save()
 
         if self.achievement_levels is not None:

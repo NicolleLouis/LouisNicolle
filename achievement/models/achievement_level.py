@@ -9,6 +9,10 @@ class AchievementLevel(models.Model):
         blank=True,
         max_length=50
     )
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
     level = models.IntegerField(
         default=1
     )
