@@ -1,6 +1,7 @@
 from achievement.AbstractAchievement import AbstractAchievement
 from achievement.constant.app_list import AppList
 from climax_tracker.repository.profile_repository import ProfileRepository
+from stats.models.profile import Profile
 
 
 class LowestAccountAchievement(AbstractAchievement):
@@ -18,7 +19,10 @@ class LowestAccountAchievement(AbstractAchievement):
         )
 
     def compute(self, user_profile):
-        climax_profile = user_profile.climax_profile
+        try:
+            climax_profile = user_profile.climax_profile
+        except Profile.climax_profile.RelatedObjectDoesNotExist:
+            return 0
         lowest_profile = ProfileRepository.get_lowest_account()
         if climax_profile.climax_account == lowest_profile.climax_account:
             return True
