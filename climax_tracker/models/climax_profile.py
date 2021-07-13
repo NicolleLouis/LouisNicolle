@@ -53,6 +53,9 @@ class ClimaxProfile(models.Model):
                 unpaid_bets_climax_amount += bet.climax_amount
         return unpaid_bets
 
+    def get_won_bets(self):
+        return BetRepository.get_bet_won_by_profile(self)
+
 
 class ClimaxProfileAdmin(admin.ModelAdmin):
     list_display = (

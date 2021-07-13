@@ -14,9 +14,15 @@ class ProfileDetailView(APIView):
 
     def get(self, request, profile_id, *args, **kwargs):
         profile = self.repository.get_by_id(profile_id)
-        unpaid_bets = profile.get_unpaid_bet()
         profile_serializer = self.profile_serializer(profile)
-        bet_serializer = self.bet_serializer(unpaid_bets, many=True)
         data = profile_serializer.data
-        data["unpaid_bets"] = bet_serializer.data
+
+        unpaid_bets = profile.get_unpaid_bet()
+        unpaid_bets_serializer = self.bet_serializer(unpaid_bets, many=True)
+        data["unpaid_bets"] = unpaid_bets_serializer.data
+
+        won_bets = profile.get_won_bets()
+        won_bets_serializer = self.bet_serializer(won_bets, many=True)
+        data["won_bets"] = won_bets_serializer.data
+
         return Response(data, status=status.HTTP_200_OK)
