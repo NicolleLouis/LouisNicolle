@@ -14,3 +14,8 @@ class ProfileRepository:
     def get_lowest_account():
         queryset = ProfileRepository.get_queryset().order_by('climax_account')
         return queryset[0]
+
+    @staticmethod
+    def biggest_bet_winner_profile():
+        queryset = ProfileRepository.get_queryset().order_by('-total_climax_bet_win')
+        return queryset[0]
