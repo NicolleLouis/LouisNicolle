@@ -17,3 +17,22 @@ class BetRepository:
         queryset = BetRepository.get_queryset()
         queryset = queryset.filter(loser=profile)
         return queryset
+
+    @staticmethod
+    def create_bet(
+            winner_id,
+            loser_id,
+            motive,
+            climax_amount,
+    ):
+        from climax_tracker.repository.profile_repository import ProfileRepository
+
+        winner = ProfileRepository.get_by_id(winner_id)
+        loser = ProfileRepository.get_by_id(loser_id)
+        bet = Bet(
+            winner=winner,
+            loser=loser,
+            climax_amount=climax_amount,
+            motive=motive
+        )
+        bet.save()
