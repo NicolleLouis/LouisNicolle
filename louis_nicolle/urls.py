@@ -18,6 +18,7 @@ schema_view = get_schema_view(
         path('aeon/', include('aeon.urls')),
         path('climax_tracker/', include('climax_tracker.urls')),
         path('achievement/', include('achievement.urls')),
+        path('stats/', include('stats.urls')),
     ],
 )
 
@@ -27,5 +28,6 @@ urlpatterns = [
     path('aeon/', include('aeon.urls')),
     path('climax_tracker/', include('climax_tracker.urls')),
     path('achievement/', include('achievement.urls')),
+    path('stats/', include('stats.urls')),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

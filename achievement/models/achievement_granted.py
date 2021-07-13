@@ -29,6 +29,12 @@ class AchievementGranted(models.Model):
             return str(self.achievement_level)
         return str(self.achievement)
 
+    @property
+    def name(self):
+        if self.achievement_level is not None:
+            return self.achievement_level.name
+        return self.achievement.name
+
 
 class AchievementGrantedAdmin(admin.ModelAdmin):
     list_display = (
