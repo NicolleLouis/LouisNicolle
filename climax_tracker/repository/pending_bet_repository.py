@@ -28,3 +28,11 @@ class PendingBetRepository:
             motive=motive
         )
         pending_bet.save()
+
+    @staticmethod
+    def get_by_player_1(climax_profile):
+        return PendingBet.objects.filter(player_1=climax_profile)
+
+    @staticmethod
+    def get_by_player_2(climax_profile):
+        return PendingBet.objects.filter(player_2=climax_profile)

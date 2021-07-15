@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import admin
 
 from climax_tracker.repository.bet_repository import BetRepository
+from climax_tracker.repository.pending_bet_repository import PendingBetRepository
 from stats.models.profile import Profile
 
 
@@ -55,6 +56,11 @@ class ClimaxProfile(models.Model):
 
     def get_won_bets(self):
         return BetRepository.get_bet_won_by_profile(self)
+
+    def get_pending_bets(self):
+        pending_bets = list(PendingBetRepository.get_by_player_1(self))
+        pending_bets.extend(list(PendingBetRepository.get_by_player_2(self)))
+        return pending_bets
 
 
 class ClimaxProfileAdmin(admin.ModelAdmin):
