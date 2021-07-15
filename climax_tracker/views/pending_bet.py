@@ -3,33 +3,26 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from climax_tracker.repository.pending_bet_repository import PendingBetRepository
-from climax_tracker.repository.profile_repository import ProfileRepository
 
 
 class PendingBetView(APIView):
     repository_class = PendingBetRepository
-    profile_repository = ProfileRepository
 
     def post(self, request, *args, **kwargs):
         """
         data example
         {
-            'pending_bet_id': 1,
-            'player_id': 2,
-            'is_victory': True,
+            'player_1_id': 1,
+            'player_2_id': 2,
+            'motive': 'Louis fait 3 sauts périlleux',
+            'climax_amount': '1'
         }
         """
         data = request.data
-        pending_bet = self.repository_class.get_by_id(
-            pending_bet_id=data["pending_bet_id"]
+        self.repository_class.create_pending_bet(
+            player_1_id=data["player_1_id"],
+            player_2_id=data["player_2_id"],
+            motive=data["motive"],
+            climax_amount=data["climax_amount"],
         )
-        player = self.profile_repository.get_by_id(
-            profile_id=data["player_id"]
-        )
-        is_victory = data["is_victory"]
-        if is_victory:
-            pending_bet.win(player)
-        else:
-            pending_bet.lose(player)
-
         return Response({}, status=status.HTTP_200_OK)
