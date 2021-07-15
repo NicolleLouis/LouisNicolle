@@ -2,17 +2,17 @@ from django.db import models
 from django.contrib import admin
 
 
-class Bet(models.Model):
+class PendingBet(models.Model):
     id = models.AutoField(primary_key=True)
-    winner = models.ForeignKey(
+    player_1 = models.ForeignKey(
         'ClimaxProfile',
         on_delete=models.CASCADE,
-        related_name="bet_winner",
+        related_name="pending_bet_player_1",
     )
-    loser = models.ForeignKey(
+    player_2 = models.ForeignKey(
         'ClimaxProfile',
         on_delete=models.CASCADE,
-        related_name="bet_loser",
+        related_name="pending_bet_player_2",
     )
     climax_amount = models.IntegerField(
         default=1,
@@ -26,19 +26,20 @@ class Bet(models.Model):
     )
 
     def __str__(self):
-        return "{} win {} climax against {}".format(self.winner, self.climax_amount, self.loser)
+        return "Pending Bet opposing: {} and {}".format(self.player_1, self.player_2)
 
 
-class BetAdmin(admin.ModelAdmin):
+class PendingBetAdmin(admin.ModelAdmin):
     list_display = (
-        'winner',
-        "loser",
+        'id',
+        'player_1',
+        "player_2",
         'climax_amount',
     )
 
     list_filter = (
-        "winner",
-        "loser",
+        "player_1",
+        "player_2",
     )
 
     ordering = (
@@ -46,7 +47,7 @@ class BetAdmin(admin.ModelAdmin):
     )
 
     search_fields = (
-        "winner",
-        "loser",
+        "player_1",
+        "player_2",
         "motive",
     )
