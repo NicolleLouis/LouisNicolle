@@ -59,6 +59,7 @@ class ClimaxProfile(models.Model):
 
 class ClimaxProfileAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'name',
         'climax_account',
         "climax_eaten",

@@ -28,6 +28,46 @@ class PendingBet(models.Model):
     def __str__(self):
         return "Pending Bet opposing: {} and {}".format(self.player_1, self.player_2)
 
+    def win(self, player):
+        from climax_tracker.models.bet import Bet
+
+        if player not in [self.player_1, self.player_2]:
+            raise SystemError("PendingBet should be won by player already registered")
+        winner = player
+        if winner == self.player_1:
+            loser = self.player_2
+        else:
+            loser = self.player_1
+
+        bet = Bet(
+            winner=winner,
+            loser=loser,
+            climax_amount=self.climax_amount,
+            motive=self.motive
+        )
+        bet.save()
+        self.delete()
+
+    def lose(self, player):
+        from climax_tracker.models.bet import Bet
+
+        if player not in [self.player_1, self.player_2]:
+            raise SystemError("PendingBet should be won by player already registered")
+        loser = player
+        if loser == self.player_1:
+            winner = self.player_2
+        else:
+            winner = self.player_1
+
+        bet = Bet(
+            winner=winner,
+            loser=loser,
+            climax_amount=self.climax_amount,
+            motive=self.motive
+        )
+        bet.save()
+        self.delete()
+
 
 class PendingBetAdmin(admin.ModelAdmin):
     list_display = (

@@ -3,8 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from climax_tracker.repository.bet_repository import BetRepository
-from climax_tracker.repository.profile_repository import ProfileRepository
-from climax_tracker.serializers.climax_profile_short import ClimaxProfileShortSerializer
 
 
 class BetView(APIView):
