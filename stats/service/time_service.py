@@ -45,4 +45,4 @@ class TimeService:
     @staticmethod
     def seconds_from_now(date):
         current_date = datetime.now(timezone.utc)
-        return (current_date - date).seconds
+        return (current_date - date).total_seconds()
