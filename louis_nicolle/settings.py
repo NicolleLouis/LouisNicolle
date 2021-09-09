@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'graph',
     'climax_tracker',
     'achievement',
+    'celauco',
 ]
 
 MIDDLEWARE = [
