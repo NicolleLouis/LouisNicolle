@@ -9,3 +9,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         board = Board()
         board.print()
+        print("###")
+        print("Next Turn")
+        print("###")
+        board.next_turn()
+        board.print()
