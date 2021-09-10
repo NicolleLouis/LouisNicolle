@@ -2,14 +2,18 @@ from celauco.constant.game import CellStatus
 from celauco.models.board import Board
 from celauco.models.human import Human
 from celauco.models.position import Position
+from celauco.services.probabilty_service import ProbabilityService
 
 
 class Game:
-    height = 9
-    width = 9
-    human_number = 25
     humans = []
     boards = []
+
+    # Game variable #
+    height = 9
+    width = 9
+    human_number = 20
+    infection_probability = 50
 
     def __init__(self):
         for i in range(self.human_number):
@@ -37,7 +41,8 @@ class Game:
                 for potential_neighbour in self.humans:
                     if potential_neighbour.is_healthy():
                         if human.position.is_neighbour(potential_neighbour.position):
-                            potential_neighbour.set_infected()
+                            if ProbabilityService.roll_probability(self.infection_probability):
+                                potential_neighbour.set_infected()
 
     def is_cell_empty(self, position):
         return self.get_state(position) == CellStatus.EMPTY
