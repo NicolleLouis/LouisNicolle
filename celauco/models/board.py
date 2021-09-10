@@ -8,6 +8,7 @@ class Board:
     """
     number_infected = 0
     number_healthy = 0
+    number_immune = 0
 
     def __init__(self, board):
         self.board = board
@@ -23,15 +24,20 @@ class Board:
     def print_state(self):
         print("Number of human infected: {}".format(self.number_infected))
         print("Number of human healthy: {}".format(self.number_healthy))
+        print("Number of human immune: {}".format(self.number_immune))
 
     def compute_values(self):
         number_infected = 0
         number_healthy = 0
+        number_immune = 0
         for line in self.board:
             for cell in line:
                 if cell == CellStatus.HUMAN_HEALTHY:
                     number_healthy += 1
                 if cell == CellStatus.HUMAN_INFECTED:
                     number_infected += 1
+                if cell == CellStatus.HUMAN_IMMUNE:
+                    number_immune += 1
         self.number_healthy = number_healthy
         self.number_infected = number_infected
+        self.number_immune = number_immune
