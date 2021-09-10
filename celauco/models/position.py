@@ -34,3 +34,10 @@ class Position:
     def get_random_neighbour(self):
         neighbours = self.get_neighbours()
         return random.choice(neighbours)
+
+    def is_neighbour(self, position):
+        neighbours = self.get_neighbours()
+        for neighbour in neighbours:
+            if neighbour.is_equal(position):
+                return True
+        return False
