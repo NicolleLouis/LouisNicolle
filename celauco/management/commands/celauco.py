@@ -9,6 +9,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         game = Game()
         game.print_board()
+        print("#####")
+        game.print_state()
+        print("#####")
         number_of_turn = 10
         for i in range(number_of_turn):
             game.next_turn()

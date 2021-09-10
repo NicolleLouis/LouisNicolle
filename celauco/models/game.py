@@ -1,4 +1,5 @@
-from celauco.constant.board import CellStatus
+from celauco.constant.game import CellStatus
+from celauco.models.board import Board
 from celauco.models.human import Human
 from celauco.models.position import Position
 
@@ -6,13 +7,15 @@ from celauco.models.position import Position
 class Game:
     height = 9
     width = 9
-    human_number = 40
+    human_number = 25
     humans = []
+    boards = []
 
     def __init__(self):
         for i in range(self.human_number):
             self.add_human()
         self.humans[0].set_infected()
+        self.update_board_history()
 
     def get_state(self, position):
         if position.y < 0 or position.y >= self.height:
@@ -43,6 +46,7 @@ class Game:
         for human in self.humans:
             human.move()
         self.update_infection()
+        self.update_board_history()
 
     def add_human(self):
         human = Human(self.height, self.width, self)
@@ -63,12 +67,20 @@ class Game:
                 number_healthy += 1
         return number_healthy
 
-    def print_state(self):
-        print("Number of human infected: {}".format(self.number_infected()))
+    def get_board(self):
+        board = []
+        for x in range(self.width):
+            line = []
+            for y in range(self.width):
+                line.append(self.get_state(Position(x, y)))
+            board.append(line)
+        return Board(board)
+
+    def update_board_history(self):
+        self.boards.append(self.get_board())
 
     def print_board(self):
-        for y in range(self.height):
-            line = ""
-            for x in range(self.width):
-                line += self.get_state(Position(x, y)).value
-            print(line)
+        self.boards[-1].print_board()
+
+    def print_state(self):
+        self.boards[-1].print_state()
