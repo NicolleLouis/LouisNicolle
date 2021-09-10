@@ -18,8 +18,8 @@ class Board:
         if x < 0 or x >= self.width:
             return CellStatus.ILLEGAL
         for human in self.humans:
-            human_x, human_y = human.get_position()
-            if x == human_x and y == human_y:
+            human_position = human.get_position()
+            if human_position.is_equal(x, y):
                 return CellStatus.HUMAN
         return CellStatus.EMPTY
 
@@ -30,4 +30,4 @@ class Board:
                 line += self.get_state(x, y).value
             print(line)
         for human in self.humans:
-            human.print()
+            print(human)
