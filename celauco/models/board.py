@@ -14,17 +14,14 @@ class Board:
         self.board = board
         self.compute_values()
 
-    def print_board(self):
-        for line in self.board:
-            displayed_line = ""
-            for cell in line:
-                displayed_line += cell.value
-            print(displayed_line)
+    def get_state(self, position):
+        return self.board[position.y][position.x]
 
-    def print_state(self):
-        print("Number of human infected: {}".format(self.number_infected))
-        print("Number of human healthy: {}".format(self.number_healthy))
-        print("Number of human immune: {}".format(self.number_immune))
+    def get_height(self):
+        return len(self.board)
+
+    def get_width(self):
+        return len(self.board[0])
 
     def compute_values(self):
         number_infected = 0
@@ -41,3 +38,15 @@ class Board:
         self.number_healthy = number_healthy
         self.number_infected = number_infected
         self.number_immune = number_immune
+
+    def print_board(self):
+        for line in self.board:
+            displayed_line = ""
+            for cell in line:
+                displayed_line += cell.value
+            print(displayed_line)
+
+    def print_state(self):
+        print("Number of human infected: {}".format(self.number_infected))
+        print("Number of human healthy: {}".format(self.number_healthy))
+        print("Number of human immune: {}".format(self.number_immune))

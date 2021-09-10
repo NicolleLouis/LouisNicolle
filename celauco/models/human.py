@@ -6,7 +6,7 @@ class Human:
     state = HumanState.HEALTHY
 
     # Game variable #
-    infection_duration = 10
+    infection_duration = 25
 
     def __init__(self, game):
         self.game = game

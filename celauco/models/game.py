@@ -1,4 +1,5 @@
 from celauco.constant.game import CellStatus
+from celauco.constant.rooms.empty_room import empty_room
 from celauco.models.board import Board
 from celauco.models.human import Human
 from celauco.models.position import Position
@@ -8,14 +9,18 @@ from celauco.services.probabilty_service import ProbabilityService
 class Game:
     humans = []
     boards = []
+    room = empty_room
 
     # Game variable #
-    height = 9
-    width = 9
-    human_number = 20
-    infection_probability = 50
+    human_number = 30
+    infection_probability = 10
 
-    def __init__(self):
+    def __init__(self, room=None):
+        if room is not None:
+            self.room = room
+        self.height = self.room.get_height()
+        self.width = self.room.get_width()
+
         for i in range(self.human_number):
             self.add_human()
         self.humans[0].set_infected()
@@ -39,10 +44,15 @@ class Game:
     def update_board_history(self):
         self.boards.append(self.get_board())
 
+    def get_room_state(self, position):
+        return self.room.get_state(position)
+
     def get_state(self, position):
         if position.y < 0 or position.y >= self.height:
             return CellStatus.ILLEGAL
         if position.x < 0 or position.x >= self.width:
+            return CellStatus.ILLEGAL
+        if self.get_room_state(position) == CellStatus.ILLEGAL:
             return CellStatus.ILLEGAL
         for human in self.humans:
             human_position = human.get_position()
@@ -65,10 +75,10 @@ class Game:
 
     def get_board(self):
         board = []
-        for x in range(self.width):
+        for y in range(self.height):
             line = []
-            for y in range(self.width):
-                line.append(self.get_state(Position(x, y)))
+            for x in range(self.width):
+                line.append(self.get_state(Position(x=x, y=y)))
             board.append(line)
         return Board(board)
 
