@@ -11,9 +11,11 @@ class RoomGeneratorService:
             for x in range(width):
                 line.append(CellStatus.EMPTY)
             board.append(line)
-        return Board(board)
+        board_object = Board.objects.create_board(board=board)
+        return board_object
 
     @staticmethod
     def add_walls(room, positions):
+        print(room)
         for position in positions:
             room.board[position.y][position.x] = CellStatus.ILLEGAL

@@ -1,4 +1,4 @@
-from achievement.AbstractAchievement import AbstractAchievement
+from achievement.abstract_achievement import AbstractAchievement
 from achievement.constant.app_list import AppList
 from climax_tracker.repository.profile_repository import ProfileRepository
 from stats.models.profile import Profile
