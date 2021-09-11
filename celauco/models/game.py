@@ -33,9 +33,9 @@ class Game:
 
     def next_turn(self):
         self.turn_number += 1
+        self.remove_dead_bodies()
         for human in self.humans:
             human.next_turn()
-        self.remove_dead_bodies()
         self.update_infection()
         self.update_board_history()
 
