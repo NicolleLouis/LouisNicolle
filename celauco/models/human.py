@@ -1,5 +1,6 @@
 from celauco.constant.human_state import HumanState
 from celauco.models.position import Position
+from celauco.services.probabilty_service import ProbabilityService
 
 
 class Human:
@@ -7,6 +8,7 @@ class Human:
 
     # Game variable #
     infection_duration = 25
+    death_probability = 3
 
     def __init__(self, game):
         self.game = game
@@ -29,6 +31,8 @@ class Human:
             self.infection_duration += -1
             if self.infection_duration == 0:
                 self.set_immune()
+            if ProbabilityService.roll_probability(self.death_probability):
+                self.set_dead()
 
     def __str__(self):
         return "Human {} on position: {}".format(self.state.value, self.position)
@@ -39,6 +43,9 @@ class Human:
     def set_infected(self):
         if self.is_healthy():
             self.state = HumanState.INFECTED
+
+    def set_dead(self):
+        self.state = HumanState.DEAD
 
     def set_immune(self):
         self.state = HumanState.IMMUNE
@@ -51,3 +58,6 @@ class Human:
 
     def is_immune(self):
         return self.state == HumanState.IMMUNE
+
+    def is_dead(self):
+        return self.state == HumanState.DEAD

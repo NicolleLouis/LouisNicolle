@@ -17,6 +17,7 @@ class Game:
     human_number = 30
     infection_probability = 10
     number_of_turn = 50
+    number_of_dead = 0
 
     def __init__(self, room=None):
         BoardRepository.delete_all_boards()
@@ -34,6 +35,7 @@ class Game:
         self.turn_number += 1
         for human in self.humans:
             human.next_turn()
+        self.remove_dead_bodies()
         self.update_infection()
         self.update_board_history()
 
@@ -50,8 +52,24 @@ class Game:
                             if ProbabilityService.roll_probability(self.infection_probability):
                                 potential_neighbour.set_infected()
 
+    def remove_dead_bodies(self):
+        human_still_alive = list(
+            filter(
+                lambda human: not human.is_dead(),
+                self.humans
+            )
+        )
+        number_of_death = len(self.humans) - len(human_still_alive)
+        self.number_of_dead += number_of_death
+        self.humans = human_still_alive
+
     def update_board_history(self):
-        self.boards.append(self.get_board())
+        board = Board.objects.create_board(
+            board=self.get_board(),
+            turn_number=self.turn_number,
+            number_of_dead=self.number_of_dead,
+        )
+        self.boards.append(board)
 
     def get_room_state(self, position):
         return self.room.get_state(position)
@@ -72,6 +90,8 @@ class Game:
                     return CellStatus.HUMAN_INFECTED
                 if human.is_immune():
                     return CellStatus.HUMAN_IMMUNE
+                if human.is_dead():
+                    return CellStatus.HUMAN_DEAD
         return CellStatus.EMPTY
 
     def is_cell_empty(self, position):
@@ -89,7 +109,7 @@ class Game:
             for x in range(self.width):
                 line.append(self.get_state(Position(x=x, y=y)))
             board.append(line)
-        return Board.objects.create_board(board=board, turn_number=self.turn_number)
+        return board
 
     def print_board(self):
         self.boards[-1].print_board()

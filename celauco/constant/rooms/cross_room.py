@@ -15,7 +15,7 @@ def get_cross_room():
         Position(x=4, y=6),
         Position(x=4, y=7),
         Position(x=4, y=8),
-
+        ###################
         Position(x=0, y=4),
         Position(x=1, y=4),
         Position(x=2, y=4),

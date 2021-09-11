@@ -16,6 +16,5 @@ class RoomGeneratorService:
 
     @staticmethod
     def add_walls(room, positions):
-        print(room)
         for position in positions:
             room.board[position.y][position.x] = CellStatus.ILLEGAL

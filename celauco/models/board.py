@@ -10,9 +10,10 @@ class BoardManager(models.Manager):
         self.board is an array of array describing each cell of the board game
         as a constant from CellStatus
     """
-    def create_board(self, board, turn_number=0):
+    def create_board(self, board, number_of_dead=0, turn_number=0):
         board_object = self.create(
-            turn_number=turn_number
+            number_of_dead=number_of_dead,
+            turn_number=turn_number,
         )
         board_object.set_board(board=board)
         board_object.compute_board_string_representation()
@@ -35,15 +36,19 @@ class Board(models.Model):
         null=True,
         blank=True,
     )
-    number_infected = models.IntegerField(
-        null=True,
-        blank=True,
-    )
     number_healthy = models.IntegerField(
         null=True,
         blank=True,
     )
     number_immune = models.IntegerField(
+        null=True,
+        blank=True,
+    )
+    number_infected = models.IntegerField(
+        null=True,
+        blank=True,
+    )
+    number_of_dead = models.IntegerField(
         null=True,
         blank=True,
     )
@@ -84,6 +89,7 @@ class Board(models.Model):
                     self.number_infected += 1
                 if cell == CellStatus.HUMAN_IMMUNE:
                     self.number_immune += 1
+                    self.number_healthy += 1
 
     def print_board(self):
         for line in self.board:
@@ -93,8 +99,9 @@ class Board(models.Model):
             print(displayed_line)
 
     def print_state(self):
-        print("Number of human infected: {}".format(self.number_infected))
         print("Number of human healthy: {}".format(self.number_healthy))
+        print("Number of dead: {}".format(self.number_of_dead))
+        print("Number of human infected: {}".format(self.number_infected))
         print("Number of human immune: {}".format(self.number_immune))
 
 
@@ -102,6 +109,7 @@ class BoardAdmin(admin.ModelAdmin):
     list_display = (
         "turn_number",
         "number_healthy",
+        "number_of_dead",
         "number_infected",
         "number_immune",
     )
