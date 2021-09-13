@@ -10,10 +10,11 @@ class BoardManager(models.Manager):
         self.board is an array of array describing each cell of the board game
         as a constant from CellStatus
     """
-    def create_board(self, board, number_of_dead=0, turn_number=0):
+    def create_board(self, board, number_of_dead=0, turn_number=0, is_room=False):
         board_object = self.create(
             number_of_dead=number_of_dead,
             turn_number=turn_number,
+            is_room=is_room,
         )
         board_object.set_board(board=board)
         board_object.compute_board_string_representation()
@@ -28,6 +29,7 @@ class Board(models.Model):
     board = None
 
     id = models.AutoField(primary_key=True)
+    is_room = models.BooleanField()
     turn_number = models.IntegerField(
         null=True,
         blank=True,
@@ -112,6 +114,7 @@ class BoardAdmin(admin.ModelAdmin):
         "number_of_dead",
         "number_infected",
         "number_immune",
+        "is_room",
     )
 
     ordering = ("turn_number",)

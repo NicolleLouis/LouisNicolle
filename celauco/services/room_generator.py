@@ -11,7 +11,7 @@ class RoomGeneratorService:
             for x in range(width):
                 line.append(CellStatus.EMPTY)
             board.append(line)
-        board_object = Board.objects.create_board(board=board)
+        board_object = Board.objects.create_board(board=board, is_room=True)
         return board_object
 
     @staticmethod

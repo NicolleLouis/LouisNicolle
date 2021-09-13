@@ -4,6 +4,7 @@ from celauco.models.board import Board
 from celauco.models.human import Human
 from celauco.models.position import Position
 from celauco.repository.board_repository import BoardRepository
+from celauco.services.game_service import GameService
 from celauco.services.probabilty_service import ProbabilityService
 
 
@@ -12,24 +13,30 @@ class Game:
     boards = []
     room = empty_room
     turn_number = 0
+    number_of_dead = 0
 
     # Game variable #
     human_number = 30
-    infection_probability = 10
-    number_of_turn = 50
-    number_of_dead = 0
+    infection_probability = 25
+    number_of_turn = 100
 
-    def __init__(self, room=None):
+    def __init__(self, room=None, game_tag="default"):
         BoardRepository.delete_all_boards()
         if room is not None:
             self.room = room
         self.height = self.room.get_height()
         self.width = self.room.get_width()
+        self.game_tag = game_tag
 
         for i in range(self.human_number):
             self.add_human()
         self.humans[0].set_infected()
         self.update_board_history()
+
+    def play_game(self):
+        for i in range(self.number_of_turn):
+            self.next_turn()
+        GameService.upload_game_result(game_tag=self.game_tag)
 
     def next_turn(self):
         self.turn_number += 1
@@ -38,10 +45,6 @@ class Game:
             human.next_turn()
         self.update_infection()
         self.update_board_history()
-
-    def play_game(self):
-        for i in range(self.number_of_turn):
-            self.next_turn()
 
     def update_infection(self):
         for human in self.humans:

@@ -8,7 +8,7 @@ class Human:
 
     # Game variable #
     infection_duration = 25
-    death_probability = 3
+    death_probability = 1
 
     def __init__(self, game):
         self.game = game
